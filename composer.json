@@ -1,0 +1,50 @@
+{
+    "name": "astrotomic/phpunit-assertions",
+    "description": "Easily generate Open Graph tags",
+    "keywords": [
+        "phpunit",
+        "assertions"
+    ],
+    "homepage": "https://github.com/Astrotomic/phpunit-assertions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Witkowski",
+            "email": "gummibeer@astrotomic.info",
+            "homepage": "https://astrotomic.info",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "require-dev": {
+        "hashids/hashids": "^4.0",
+        "league/iso3166": "^2.0",
+        "orchestra/testbench": "^6.0",
+        "ramsey/uuid": "^4.0",
+        "vinkla/hashids": "^9.0"
+    },
+    "suggest": {
+        "hashids/hashids": "\\Astrotomic\\PhpunitAssertions\\HashidAssertions (^4.0)",
+        "league/iso3166": "\\Astrotomic\\PhpunitAssertions\\CountryAssertions (^2.0)",
+        "ramsey/uuid": "\\Astrotomic\\PhpunitAssertions\\UuidAssertions (^4.0)",
+        "vinkla/hashids": "\\Astrotomic\\PhpunitAssertions\\Laravel\\HashidAssertions (^9.0)"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Astrotomic\\PhpunitAssertions\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Astrotomic\\PhpunitAssertions\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
