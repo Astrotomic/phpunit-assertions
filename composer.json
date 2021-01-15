@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.1"
     },
     "require-dev": {
         "giggsey/libphonenumber-for-php": "^8.12",
