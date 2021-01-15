@@ -22,7 +22,7 @@
     "require-dev": {
         "giggsey/libphonenumber-for-php": "^8.12",
         "hashids/hashids": "^4.0",
-        "league/iso3166": "^2.0 || ^3.0",
+        "league/iso3166": "^2.1 || ^3.0",
         "orchestra/testbench": "^6.0",
         "ramsey/uuid": "^4.0",
         "vinkla/hashids": "^9.0"
@@ -30,7 +30,7 @@
     "suggest": {
         "giggsey/libphonenumber-for-php": "\\Astrotomic\\PhpunitAssertions\\PhoneNumberAssertions (^8.12)",
         "hashids/hashids": "\\Astrotomic\\PhpunitAssertions\\HashidAssertions (^4.0)",
-        "league/iso3166": "\\Astrotomic\\PhpunitAssertions\\CountryAssertions (^2.0 || ^3.0)",
+        "league/iso3166": "\\Astrotomic\\PhpunitAssertions\\CountryAssertions (^2.1 || ^3.0)",
         "ramsey/uuid": "\\Astrotomic\\PhpunitAssertions\\UuidAssertions (^4.0)",
         "vinkla/hashids": "\\Astrotomic\\PhpunitAssertions\\Laravel\\HashidAssertions (^9.0)"
     },
