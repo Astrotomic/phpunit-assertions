@@ -2,8 +2,8 @@
 
 namespace Astrotomic\PhpunitAssertions\Laravel;
 
-use Vinkla\Hashids\Facades\Hashids;
 use Astrotomic\PhpunitAssertions\HashidAssertions as BaseHashidAssertions;
+use Vinkla\Hashids\Facades\Hashids;
 
 trait HashidAssertions
 {

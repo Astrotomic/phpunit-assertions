@@ -62,21 +62,21 @@ final class CountryAssertionsTest extends TestCase
 
     public function countryName(): iterable
     {
-        return array_map(fn(array $country): array => [$country[ISO3166::KEY_NAME]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_NAME]], (new ISO3166())->all());
     }
 
     public function countryAlpha2(): iterable
     {
-        return array_map(fn(array $country): array => [$country[ISO3166::KEY_ALPHA2]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_ALPHA2]], (new ISO3166())->all());
     }
 
     public function countryAlpha3(): iterable
     {
-        return array_map(fn(array $country): array => [$country[ISO3166::KEY_ALPHA3]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_ALPHA3]], (new ISO3166())->all());
     }
 
     public function countryNumeric(): iterable
     {
-        return array_map(fn(array $country): array => [$country[ISO3166::KEY_NUMERIC]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_NUMERIC]], (new ISO3166())->all());
     }
 }

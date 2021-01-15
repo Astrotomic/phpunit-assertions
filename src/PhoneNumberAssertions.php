@@ -41,7 +41,7 @@ trait PhoneNumberAssertions
         if (is_string($actual)) {
             try {
                 $actual = PhoneNumberUtil::getInstance()->parse($actual);
-            } catch(Throwable $ex) {
+            } catch (Throwable $ex) {
             }
         }
 

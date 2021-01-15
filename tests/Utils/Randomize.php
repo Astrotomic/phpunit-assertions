@@ -9,7 +9,7 @@ trait Randomize
         $string = '';
         do {
             $string .= bin2hex(random_bytes($length));
-        } while(mb_strlen($string) < $length);
+        } while (mb_strlen($string) < $length);
 
         return mb_substr($string, 0, $length);
     }

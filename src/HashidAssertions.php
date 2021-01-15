@@ -13,7 +13,7 @@ trait HashidAssertions
         ?string $salt = null,
         int $minHashLength = 0,
         ?string $alphabet = null
-    ): void{
+    ): void {
         PHPUnit::assertIsString($actual);
 
         $hashid = new Hashids(
@@ -25,11 +25,11 @@ trait HashidAssertions
         $ids = $hashid->decode($actual);
         PHPUnit::assertIsArray($ids);
 
-        if($count !== null) {
+        if ($count !== null) {
             PHPUnit::assertCount($count, $ids);
         }
 
-        foreach($ids as $id) {
+        foreach ($ids as $id) {
             PHPUnit::assertIsInt($id);
             PHPUnit::assertGreaterThanOrEqual(0, $id);
         }
@@ -40,7 +40,7 @@ trait HashidAssertions
         ?string $salt = null,
         int $minHashLength = 0,
         ?string $alphabet = null
-    ): void{
+    ): void {
         static::assertHashIds($actual, 1, $salt, $minHashLength, $alphabet);
     }
 }

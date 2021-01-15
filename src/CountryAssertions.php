@@ -10,7 +10,7 @@ trait CountryAssertions
 {
     public static function assertCountry(string $key, $actual): void
     {
-        switch($key) {
+        switch ($key) {
             case ISO3166::KEY_NAME:
                 self::assertCountryName($actual);
                 break;

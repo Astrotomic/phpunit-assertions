@@ -64,7 +64,7 @@ final class HashidAssertionsTest extends TestCase
         $this->configureHashids($name, $salt, $length);
 
         $hashid = new Hashids($salt, $length);
-        $ids = array_map(fn() => static::randomInt(0), range(0, static::randomInt(2, 20)));
+        $ids = array_map(fn () => static::randomInt(0), range(0, static::randomInt(2, 20)));
 
         HashidAssertions::assertHashIds(
             $hashid->encode($ids),
