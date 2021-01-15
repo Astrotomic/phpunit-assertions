@@ -4,9 +4,14 @@ namespace Astrotomic\PhpunitAssertions\Tests\Utils;
 
 trait Randomize
 {
-    protected static function randomString(): string
+    protected static function randomString(int $length = 16): string
     {
-        return bin2hex(random_bytes(16));
+        $string = '';
+        do {
+            $string .= bin2hex(random_bytes($length));
+        } while(mb_strlen($string) < $length);
+
+        return mb_substr($string, 0, $length);
     }
 
     protected static function randomBool(): bool
