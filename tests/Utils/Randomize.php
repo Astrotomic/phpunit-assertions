@@ -28,4 +28,9 @@ trait Randomize
     {
         return max($min, min(static::randomInt(intval(floor($min) * 100), intval(ceil($max) * 100)) / 100, $max));
     }
+
+    protected static function randomElement(array $array)
+    {
+        return $array[array_rand($array)];
+    }
 }

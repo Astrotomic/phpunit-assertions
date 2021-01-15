@@ -10,4 +10,10 @@ trait Repeatable
             yield [];
         }
     }
+    public function thousandTimes(): iterable
+    {
+        for ($i = 0; $i < 1000; $i++) {
+            yield [];
+        }
+    }
 }
