@@ -20,6 +20,7 @@
         "phpunit/phpunit": "^9.1"
     },
     "require-dev": {
+        "egulias/email-validator": "^2.1 || ^3.0",
         "giggsey/libphonenumber-for-php": "^8.12",
         "hashids/hashids": "^4.0",
         "league/iso3166": "^2.1 || ^3.0",
@@ -28,6 +29,7 @@
         "vinkla/hashids": "^9.0"
     },
     "suggest": {
+        "egulias/email-validator": "\\Astrotomic\\PhpunitAssertions\\EmailAssertions (^2.1 || ^3.0)",
         "giggsey/libphonenumber-for-php": "\\Astrotomic\\PhpunitAssertions\\PhoneNumberAssertions (^8.12)",
         "hashids/hashids": "\\Astrotomic\\PhpunitAssertions\\HashidAssertions (^4.0)",
         "league/iso3166": "\\Astrotomic\\PhpunitAssertions\\CountryAssertions (^2.1 || ^3.0)",
@@ -48,5 +50,12 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "@composer validate --strict --ansi --no-interaction --quiet",
+            "@composer normalize --ansi --no-interaction --quiet",
+            "@composer thanks --ansi --no-interaction --quiet"
+        ]
+    }
 }
