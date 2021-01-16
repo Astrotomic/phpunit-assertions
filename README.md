@@ -123,7 +123,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ### HashID
 
-`composer requuire --dev vinkla/hashids
+`composer require --dev vinkla/hashids`
 
 ```php
 \Astrotomic\PhpunitAssertions\Laravel\HashidAssertions::assertHashIds('3kTMd', 2);
