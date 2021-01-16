@@ -118,7 +118,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 ### Collection
 
 ```php
-\Astrotomic\PhpunitAssertions\Laravel\CollectionAssertions::assertContains('Astrotomic', collect(['Astrotomic', 'Gummibeer']));
+\Astrotomic\PhpunitAssertions\Laravel\CollectionAssertions::assertContains($collection, 'Astrotomic');
 ```
 
 ### HashID
@@ -134,5 +134,5 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ```php
 \Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertExists($model);
-\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertSame($model, Model::first());
+\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertSame($model, User::first());
 ```
