@@ -27,7 +27,6 @@ This will prevent any method name conflicts with core, your custom or other trai
 `composer require --dev league/iso3166`
 
 ```php
-\Astrotomic\PhpunitAssertions\CountryAssertions::assertCountry('DE', \League\ISO3166\ISO3166::KEY_ALPHA2);
 \Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryName('Germany');
 \Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryAlpha2('DE');
 \Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryAlpha3('DEU');

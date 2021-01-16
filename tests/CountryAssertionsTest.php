@@ -9,18 +9,6 @@ final class CountryAssertionsTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider countries
-     */
-    public static function it_can_validate_country(string $name, string $alpha2, string $alpha3, string $numeric): void
-    {
-        CountryAssertions::assertCountry($name, ISO3166::KEY_NAME);
-        CountryAssertions::assertCountry($alpha2, ISO3166::KEY_ALPHA2);
-        CountryAssertions::assertCountry($alpha3, ISO3166::KEY_ALPHA3);
-        CountryAssertions::assertCountry($numeric, ISO3166::KEY_NUMERIC);
-    }
-
-    /**
-     * @test
      * @dataProvider countryName
      */
     public static function it_can_validate_country_by_name(string $actual): void
@@ -53,11 +41,6 @@ final class CountryAssertionsTest extends TestCase
     public static function it_can_validate_country_by_numeric(string $actual): void
     {
         CountryAssertions::assertCountryNumeric($actual);
-    }
-
-    public function countries(): iterable
-    {
-        return (new ISO3166())->all();
     }
 
     public function countryName(): iterable
