@@ -2,11 +2,9 @@
 
 namespace Astrotomic\PhpunitAssertions\Tests\Laravel;
 
-use Astrotomic\PhpunitAssertions\Laravel\CollectionAssertions;
 use Astrotomic\PhpunitAssertions\Laravel\ModelAssertions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 
 final class ModelAssertionsTest extends TestCase
@@ -53,6 +51,6 @@ final class ModelAssertionsTest extends TestCase
         $model->title = self::randomString();
         $model->save();
 
-        ModelAssertions::assertSame($model,$model->query()->first());
+        ModelAssertions::assertSame($model, $model->query()->first());
     }
 }
