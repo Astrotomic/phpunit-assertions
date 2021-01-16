@@ -23,6 +23,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip
+          tools: composer:v2
 
       - uses: actions/cache@v2
         with:
