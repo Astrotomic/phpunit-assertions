@@ -32,7 +32,7 @@ final class UrlAssertionsTest extends TestCase
             'irc',
         ]);
 
-        UrlAssertions::assertSameScheme($scheme, $scheme.'://'.self::randomString().'.com');
+        UrlAssertions::assertScheme($scheme, $scheme.'://'.self::randomString().'.com');
     }
 
     /**
@@ -43,7 +43,7 @@ final class UrlAssertionsTest extends TestCase
     {
         $host = self::randomString().'.com';
 
-        UrlAssertions::assertSameHost($host, 'https://'.$host);
+        UrlAssertions::assertHost($host, 'https://'.$host);
     }
 
     /**
@@ -54,6 +54,6 @@ final class UrlAssertionsTest extends TestCase
     {
         $path = '/'.self::randomString().'/'.self::randomString();
 
-        UrlAssertions::assertSamePath($path, 'https://'.self::randomString().'.com'.$path);
+        UrlAssertions::assertPath($path, 'https://'.self::randomString().'.com'.$path);
     }
 }

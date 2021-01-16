@@ -2,9 +2,9 @@
 
 namespace Astrotomic\PhpunitAssertions\Tests;
 
-use Astrotomic\PhpunitAssertions\StringAssertions;
+use Astrotomic\PhpunitAssertions\StringLengthAssertions;
 
-final class StringAssertionsTest extends TestCase
+final class StringLengthAssertionsTest extends TestCase
 {
     /**
      * @test
@@ -12,7 +12,7 @@ final class StringAssertionsTest extends TestCase
      */
     public static function it_can_validate_length(): void
     {
-        StringAssertions::assertLength(8, self::randomString(8));
+        StringLengthAssertions::assertSame(8, self::randomString(8));
     }
 
     /**
@@ -22,8 +22,8 @@ final class StringAssertionsTest extends TestCase
     public static function it_can_validate_not_length(): void
     {
         $string = self::randomString(self::randomInt(4, 8));
-        StringAssertions::assertNotLength(3, $string);
-        StringAssertions::assertNotLength(9, $string);
+        StringLengthAssertions::assertNotSame(3, $string);
+        StringLengthAssertions::assertNotSame(9, $string);
     }
 
     /**
@@ -32,7 +32,7 @@ final class StringAssertionsTest extends TestCase
      */
     public static function it_can_validate_length_less_than(): void
     {
-        StringAssertions::assertLengthLessThan(9, self::randomString(self::randomInt(4, 8)));
+        StringLengthAssertions::assertLessThan(9, self::randomString(self::randomInt(4, 8)));
     }
 
     /**
@@ -41,8 +41,8 @@ final class StringAssertionsTest extends TestCase
      */
     public static function it_can_validate_length_less_than_or_equal(): void
     {
-        StringAssertions::assertLengthLessThanOrEqual(8, self::randomString(self::randomInt(4, 8)));
-        StringAssertions::assertLengthLessThanOrEqual(8, self::randomString(8));
+        StringLengthAssertions::assertLessThanOrEqual(8, self::randomString(self::randomInt(4, 8)));
+        StringLengthAssertions::assertLessThanOrEqual(8, self::randomString(8));
     }
 
     /**
@@ -51,7 +51,7 @@ final class StringAssertionsTest extends TestCase
      */
     public static function it_can_validate_length_greater_than(): void
     {
-        StringAssertions::assertLengthGreaterThan(3, self::randomString(self::randomInt(4, 8)));
+        StringLengthAssertions::assertGreaterThan(3, self::randomString(self::randomInt(4, 8)));
     }
 
     /**
@@ -60,7 +60,7 @@ final class StringAssertionsTest extends TestCase
      */
     public static function it_can_validate_length_greater_than_or_equal(): void
     {
-        StringAssertions::assertLengtGreaterThanOrEqual(4, self::randomString(self::randomInt(4, 8)));
-        StringAssertions::assertLengtGreaterThanOrEqual(4, self::randomString(4));
+        StringLengthAssertions::assertGreaterThanOrEqual(4, self::randomString(self::randomInt(4, 8)));
+        StringLengthAssertions::assertGreaterThanOrEqual(4, self::randomString(4));
     }
 }

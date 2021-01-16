@@ -13,7 +13,7 @@ trait PhoneNumberAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression('/^\+[1-9]\d{1,14}$/', $actual);
-        StringAssertions::assertLengthLessThanOrEqual(16, $actual); // plus-sign and max. 15 digits incl. CC-prefix
+        StringLengthAssertions::assertLessThanOrEqual(16, $actual); // plus-sign and max. 15 digits incl. CC-prefix
     }
 
     public static function assertValid($actual): void
@@ -25,7 +25,7 @@ trait PhoneNumberAssertions
         );
     }
 
-    public static function assertValidForRegion(string $regionCode, $actual): void
+    public static function assertValidForRegion($actual, string $regionCode): void
     {
         PHPUnit::assertTrue(
             PhoneNumberUtil::getInstance()->isValidNumberForRegion(

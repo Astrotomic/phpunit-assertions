@@ -28,19 +28,19 @@ final class EmailAssertionsTest extends TestCase
      * @test
      * @dataProvider hundredTimes
      */
-    public static function it_can_validate_same_domain(): void
+    public static function it_can_validate_domain(): void
     {
-        EmailAssertions::assertSameDomain('email.com', self::randomString().'@email.com');
+        EmailAssertions::assertDomain('email.com', self::randomString().'@email.com');
     }
 
     /**
      * @test
      * @dataProvider hundredTimes
      */
-    public static function it_can_validate_same_local_part(): void
+    public static function it_can_validate_local_part(): void
     {
         $localPart = self::randomString();
 
-        EmailAssertions::assertSameLocalPart($localPart, $localPart.'@email.com');
+        EmailAssertions::assertLocalPart($localPart, $localPart.'@email.com');
     }
 }

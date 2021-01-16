@@ -31,7 +31,7 @@ final class PhoneNumberAssertionsTest extends TestCase
     public static function it_can_validate_phone_number_for_region(): void
     {
         $number = self::randomPhoneNumber();
-        PhoneNumberAssertions::assertValidForRegion($number['code'], $number['number']);
+        PhoneNumberAssertions::assertValidForRegion($number['number'], $number['code']);
     }
 
     protected static function randomPhoneNumber(): array

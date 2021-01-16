@@ -20,14 +20,14 @@ trait EmailAssertions
         PHPUnit::assertTrue((new EmailValidator())->isValid($actual, new RFCValidation()));
     }
 
-    public static function assertSameDomain(string $expected, $actual): void
+    public static function assertDomain(string $expected, $actual): void
     {
         PHPUnit::assertIsString($actual);
         [, $domain] = explode('@', $actual, 2);
         PHPUnit::assertSame($expected, $domain);
     }
 
-    public static function assertSameLocalPart(string $expected, $actual): void
+    public static function assertLocalPart(string $expected, $actual): void
     {
         PHPUnit::assertIsString($actual);
         [$localPart] = explode('@', $actual, 2);

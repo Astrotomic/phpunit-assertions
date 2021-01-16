@@ -2,9 +2,9 @@
 
 namespace Astrotomic\PhpunitAssertions\Tests;
 
-use Astrotomic\PhpunitAssertions\GeoAssertions;
+use Astrotomic\PhpunitAssertions\GeographicAssertions;
 
-final class GeoAssertionsTest extends TestCase
+final class GeographicAssertionsTest extends TestCase
 {
     /**
      * @test
@@ -12,7 +12,7 @@ final class GeoAssertionsTest extends TestCase
      */
     public static function it_can_validate_latitude(): void
     {
-        GeoAssertions::assertLatitude(static::randomFloat(-90, 90));
+        GeographicAssertions::assertLatitude(static::randomFloat(-90, 90));
     }
 
     /**
@@ -21,7 +21,7 @@ final class GeoAssertionsTest extends TestCase
      */
     public static function it_can_validate_longitude(): void
     {
-        GeoAssertions::assertLongitude(static::randomFloat(-180, 180));
+        GeographicAssertions::assertLongitude(static::randomFloat(-180, 180));
     }
 
     /**
@@ -35,7 +35,7 @@ final class GeoAssertionsTest extends TestCase
             'lng' => static::randomFloat(-180, 180),
         ];
 
-        GeoAssertions::assertCoordinates($coords);
+        GeographicAssertions::assertCoordinates($coords);
     }
 
     /**
@@ -52,6 +52,6 @@ final class GeoAssertionsTest extends TestCase
             $lng => static::randomFloat(-180, 180),
         ];
 
-        GeoAssertions::assertCoordinates($coords, $lat, $lng);
+        GeographicAssertions::assertCoordinates($coords, $lat, $lng);
     }
 }

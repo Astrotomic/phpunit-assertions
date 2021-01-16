@@ -12,22 +12,22 @@ trait UrlAssertions
         PHPUnit::assertNotFalse(filter_var($actual, FILTER_VALIDATE_URL));
     }
 
-    public static function assertSameScheme(string $expected, $actual): void
+    public static function assertScheme(string $expected, $actual): void
     {
-        self::assertSameComponent($expected, $actual, PHP_URL_SCHEME);
+        self::assertComponent($expected, $actual, PHP_URL_SCHEME);
     }
 
-    public static function assertSameHost(string $expected, $actual): void
+    public static function assertHost(string $expected, $actual): void
     {
-        self::assertSameComponent($expected, $actual, PHP_URL_HOST);
+        self::assertComponent($expected, $actual, PHP_URL_HOST);
     }
 
-    public static function assertSamePath(string $expected, $actual): void
+    public static function assertPath(string $expected, $actual): void
     {
-        self::assertSameComponent($expected, $actual, PHP_URL_PATH);
+        self::assertComponent($expected, $actual, PHP_URL_PATH);
     }
 
-    public static function assertSameComponent($expected, $actual, $component): void
+    public static function assertComponent($expected, $actual, int $component): void
     {
         self::assertValidLoose($actual);
         PHPUnit::assertSame($expected, parse_url($actual, $component));

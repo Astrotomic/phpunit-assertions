@@ -71,7 +71,7 @@ trait NullableTypeAssertions
      * @param string $type
      * @param mixed|null $actual
      */
-    private static function assertIsNullableType(bool $condition, string $type, $actual): void
+    protected static function assertIsNullableType(bool $condition, string $type, $actual): void
     {
         PHPUnit::assertTrue(
             $condition,

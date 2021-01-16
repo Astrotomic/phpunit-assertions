@@ -8,7 +8,7 @@ use PHPUnit\Framework\Assert as PHPUnit;
 
 trait CountryAssertions
 {
-    public static function assertCountry(string $key, $actual): void
+    public static function assertCountry($actual, string $key): void
     {
         switch ($key) {
             case ISO3166::KEY_NAME:

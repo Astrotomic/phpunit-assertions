@@ -13,10 +13,10 @@ final class CountryAssertionsTest extends TestCase
      */
     public static function it_can_validate_country(string $name, string $alpha2, string $alpha3, string $numeric): void
     {
-        CountryAssertions::assertCountry(ISO3166::KEY_NAME, $name);
-        CountryAssertions::assertCountry(ISO3166::KEY_ALPHA2, $alpha2);
-        CountryAssertions::assertCountry(ISO3166::KEY_ALPHA3, $alpha3);
-        CountryAssertions::assertCountry(ISO3166::KEY_NUMERIC, $numeric);
+        CountryAssertions::assertCountry($name, ISO3166::KEY_NAME);
+        CountryAssertions::assertCountry($alpha2, ISO3166::KEY_ALPHA2);
+        CountryAssertions::assertCountry($alpha3, ISO3166::KEY_ALPHA3);
+        CountryAssertions::assertCountry($numeric, ISO3166::KEY_NUMERIC);
     }
 
     /**
