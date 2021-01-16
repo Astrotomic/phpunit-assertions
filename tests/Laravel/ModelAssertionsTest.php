@@ -3,7 +3,10 @@
 namespace Astrotomic\PhpunitAssertions\Tests\Laravel;
 
 use Astrotomic\PhpunitAssertions\Laravel\ModelAssertions;
+use Astrotomic\PhpunitAssertions\Tests\Laravel\Models\Comment;
+use Astrotomic\PhpunitAssertions\Tests\Laravel\Models\Post;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -13,11 +16,8 @@ final class ModelAssertionsTest extends TestCase
     {
         parent::setUp();
 
-        Schema::create('posts', static function (Blueprint $table): void {
-            $table->increments('id');
-            $table->string('title');
-            $table->timestamps();
-        });
+        Post::migrate();
+        Comment::migrate();
     }
 
     /**
@@ -26,15 +26,11 @@ final class ModelAssertionsTest extends TestCase
      */
     public function it_can_validate_exists(): void
     {
-        $model = new class extends Model {
-            protected $table = 'posts';
-            protected $guarded = [];
-        };
+        $post = Post::create([
+            'title' => self::randomString(),
+        ]);
 
-        $model->title = self::randomString();
-        $model->save();
-
-        ModelAssertions::assertExists($model);
+        ModelAssertions::assertExists($post);
     }
 
     /**
@@ -43,14 +39,29 @@ final class ModelAssertionsTest extends TestCase
      */
     public function it_can_validate_same(): void
     {
-        $model = new class extends Model {
-            protected $table = 'posts';
-            protected $guarded = [];
-        };
+        $post = Post::create([
+            'title' => self::randomString(),
+        ]);
 
-        $model->title = self::randomString();
-        $model->save();
+        ModelAssertions::assertSame($post, Post::first());
+    }
 
-        ModelAssertions::assertSame($model, $model->query()->first());
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public function it_can_validate_related(): void
+    {
+        $post = Post::create([
+            'title' => self::randomString(),
+        ]);
+
+        $comment = Comment::create([
+            'message' => self::randomString(),
+            'post_id' => $post->getKey(),
+        ]);
+
+        ModelAssertions::assertRelated($post, $comment, 'comments');
+        ModelAssertions::assertRelated($comment, $post, 'post');
     }
 }

@@ -3,6 +3,8 @@
 namespace Astrotomic\PhpunitAssertions\Laravel;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Constraints\HasInDatabase;
 use PHPUnit\Framework\Assert as PHPUnit;
@@ -32,5 +34,15 @@ trait ModelAssertions
         PHPUnit::assertInstanceOf(get_class($expected), $actual);
         PHPUnit::assertSame($expected->exists, $actual->exists);
         PHPUnit::assertTrue($expected->is($actual));
+    }
+
+    public static function assertRelated(Model $model, $actual, string $relation)
+    {
+        PHPUnit::assertInstanceOf(Model::class, $actual);
+        PHPUnit::assertTrue(method_exists($model, $relation));
+        PHPUnit::assertInstanceOf(Relation::class, $model->$relation());
+
+        $related = $model->$relation()->whereKey($actual->getKey())->first();
+        self::assertSame($actual, $related);
     }
 }
