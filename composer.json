@@ -1,6 +1,6 @@
 {
     "name": "astrotomic/phpunit-assertions",
-    "description": "Easily generate Open Graph tags",
+    "description": "Set of common PHPUnit custom assertions.",
     "keywords": [
         "phpunit",
         "assertions"
