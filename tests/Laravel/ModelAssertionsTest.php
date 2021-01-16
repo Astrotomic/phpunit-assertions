@@ -5,10 +5,6 @@ namespace Astrotomic\PhpunitAssertions\Tests\Laravel;
 use Astrotomic\PhpunitAssertions\Laravel\ModelAssertions;
 use Astrotomic\PhpunitAssertions\Tests\Laravel\Models\Comment;
 use Astrotomic\PhpunitAssertions\Tests\Laravel\Models\Post;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 final class ModelAssertionsTest extends TestCase
 {
