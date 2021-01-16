@@ -112,3 +112,27 @@ This will prevent any method name conflicts with core, your custom or other trai
 ```php
 \Astrotomic\PhpunitAssertions\UuidAssertions::assertUuid('52d08e38-ad24-4960-af02-22e0f7e0db8d');
 ```
+
+## Laravel Assertions
+
+### Collection
+
+```php
+\Astrotomic\PhpunitAssertions\Laravel\CollectionAssertions::assertContains('Astrotomic', collect(['Astrotomic', 'Gummibeer']));
+```
+
+### HashID
+
+`composer requuire --dev vinkla/hashids
+
+```php
+\Astrotomic\PhpunitAssertions\Laravel\HashidAssertions::assertHashIds('3kTMd', 2);
+\Astrotomic\PhpunitAssertions\Laravel\HashidAssertions::assertHashId('yr8');
+```
+
+### Model
+
+```php
+\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertExists($model);
+\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertSame($model, Model::first());
+```
