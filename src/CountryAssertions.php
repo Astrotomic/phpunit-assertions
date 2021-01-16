@@ -3,7 +3,6 @@
 namespace Astrotomic\PhpunitAssertions;
 
 use League\ISO3166\ISO3166;
-use OutOfBoundsException;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 trait CountryAssertions
