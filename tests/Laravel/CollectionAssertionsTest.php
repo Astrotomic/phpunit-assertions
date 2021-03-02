@@ -23,6 +23,6 @@ final class CollectionAssertionsTest extends TestCase
             self::randomString(),
         ]);
 
-        CollectionAssertions::assertContains($value, $collection);
+        CollectionAssertions::assertContains($collection, $value);
     }
 }
