@@ -24,7 +24,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ### Country
 
-`composer require --dev league/iso3166`
+`composer require --dev league/iso3166:^3.0`
 
 ```php
 \Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryName('Germany');
@@ -35,7 +35,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ### Email
 
-`composer require --dev egulias/email-validator`
+`composer require --dev egulias/email-validator:^3.0`
 
 ```php
 \Astrotomic\PhpunitAssertions\EmailAssertions::assertValidLoose('gummibeer@astrotomic.info');
@@ -57,7 +57,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ### HashID
 
-`composer require --dev hashids/hashids`
+`composer require --dev hashids/hashids:^4.0`
 
 ```php
 \Astrotomic\PhpunitAssertions\HashidAssertions::assertHashIds('3kTMd', 2, 'this is my salt');
@@ -76,7 +76,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ### Phone Number
 
-`composer require --dev giggsey/libphonenumber-for-php`
+`composer require --dev giggsey/libphonenumber-for-php:^8.12`
 
 ```php
 \Astrotomic\PhpunitAssertions\PhoneNumberAssertions::assertE164('+498001110550');
@@ -107,7 +107,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ### UUID
 
-`composer require --dev ramsey/uuid`
+`composer require --dev ramsey/uuid:^4.0`
 
 ```php
 \Astrotomic\PhpunitAssertions\UuidAssertions::assertUuid('52d08e38-ad24-4960-af02-22e0f7e0db8d');
@@ -118,12 +118,12 @@ This will prevent any method name conflicts with core, your custom or other trai
 ### Collection
 
 ```php
-\Astrotomic\PhpunitAssertions\Laravel\CollectionAssertions::assertContains('Astrotomic', collect(['Astrotomic', 'Gummibeer']));
+\Astrotomic\PhpunitAssertions\Laravel\CollectionAssertions::assertContains($collection, 'Astrotomic');
 ```
 
 ### HashID
 
-`composer require --dev vinkla/hashids`
+`composer require --dev vinkla/hashids:^9.0`
 
 ```php
 \Astrotomic\PhpunitAssertions\Laravel\HashidAssertions::assertHashIds('3kTMd', 2);
@@ -134,5 +134,17 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ```php
 \Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertExists($model);
-\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertSame($model, Model::first());
+\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertSame($model, \App\Models\User::first());
+```
+
+### Blade
+
+`composer require --dev gajus/dindent:^2.0`
+
+```php
+\Astrotomic\PhpunitAssertions\Laravel\BladeAssertions::assertRenderEquals(
+    "<p>Price: <code>99.99 €</code></p>",
+    '<p>Price: <code>{{ number_format($price, 2) }} €</code></p>',
+    ['price' => 99.99]
+);
 ```

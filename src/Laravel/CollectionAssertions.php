@@ -7,9 +7,8 @@ use PHPUnit\Framework\Assert as PHPUnit;
 
 trait CollectionAssertions
 {
-    public static function assertContains($expected, $actual): void
+    public static function assertContains(Enumerable $collection, $expected): void
     {
-        PHPUnit::assertInstanceOf(Enumerable::class, $actual);
-        PHPUnit::assertTrue($actual->contains($expected));
+        PHPUnit::assertTrue($collection->contains($expected));
     }
 }

@@ -21,6 +21,7 @@
     },
     "require-dev": {
         "egulias/email-validator": "^2.1 || ^3.0",
+        "gajus/dindent": "^2.0",
         "giggsey/libphonenumber-for-php": "^8.12",
         "hashids/hashids": "^4.0",
         "league/iso3166": "^2.1 || ^3.0",
@@ -30,6 +31,7 @@
     },
     "suggest": {
         "egulias/email-validator": "\\Astrotomic\\PhpunitAssertions\\EmailAssertions (^2.1 || ^3.0)",
+        "gajus/dindent": "\\Astrotomic\\PhpunitAssertions\\Laravel\\BladeAssertions (^2.0)",
         "giggsey/libphonenumber-for-php": "\\Astrotomic\\PhpunitAssertions\\PhoneNumberAssertions (^8.12)",
         "hashids/hashids": "\\Astrotomic\\PhpunitAssertions\\HashidAssertions (^4.0)",
         "league/iso3166": "\\Astrotomic\\PhpunitAssertions\\CountryAssertions (^2.1 || ^3.0)",
