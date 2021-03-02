@@ -19,7 +19,6 @@ trait BladeAssertions
         );
     }
 
-
     protected static function render(string $template, array $data = []): string
     {
         $tempDirectory = sys_get_temp_dir();
