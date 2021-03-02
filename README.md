@@ -136,7 +136,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 \Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertExists($model);
 \Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertSame($model, \App\Models\User::first());
 \Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertRelated($post, $comment, 'comments');
-\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertRelationship($post, \App\Models\Comment::class, 'comments', \Illuminate\Database\Eloquent\Relations\HasMany::class);
+\Astrotomic\PhpunitAssertions\Laravel\ModelAssertions::assertRelated($post, \App\Models\Comment::class, 'comments', \Illuminate\Database\Eloquent\Relations\HasMany::class);
 ```
 
 ### Blade

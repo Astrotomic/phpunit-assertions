@@ -48,25 +48,6 @@ final class ModelAssertionsTest extends TestCase
      * @test
      * @dataProvider hundredTimes
      */
-    public function it_can_validate_related(): void
-    {
-        $post = Post::create([
-            'title' => self::randomString(),
-        ]);
-
-        $comment = Comment::create([
-            'message' => self::randomString(),
-            'post_id' => $post->getKey(),
-        ]);
-
-        ModelAssertions::assertRelated($post, 'comments', $comment);
-        ModelAssertions::assertRelated($comment, 'post', $post);
-    }
-
-    /**
-     * @test
-     * @dataProvider hundredTimes
-     */
     public function it_can_validate_relationship(): void
     {
         $post = Post::create([
@@ -78,12 +59,16 @@ final class ModelAssertionsTest extends TestCase
             'post_id' => $post->getKey(),
         ]);
 
-        ModelAssertions::assertRelationship($post, 'comments', Comment::class);
-        ModelAssertions::assertRelationship($post, 'comments', Comment::class, HasMany::class);
-        ModelAssertions::assertRelationship($post, 'comments', $comment, HasMany::class);
+        ModelAssertions::assertRelated($post, 'comments', Comment::class);
+        ModelAssertions::assertRelated($post, 'comments', $comment);
 
-        ModelAssertions::assertRelationship($comment, 'post', Post::class);
-        ModelAssertions::assertRelationship($comment, 'post', Post::class, BelongsTo::class);
-        ModelAssertions::assertRelationship($comment, 'post', $post, BelongsTo::class);
+        ModelAssertions::assertRelated($post, 'comments', Comment::class, HasMany::class);
+        ModelAssertions::assertRelated($post, 'comments', $comment, HasMany::class);
+
+        ModelAssertions::assertRelated($comment, 'post', Post::class);
+        ModelAssertions::assertRelated($comment, 'post', $post);
+
+        ModelAssertions::assertRelated($comment, 'post', Post::class, BelongsTo::class);
+        ModelAssertions::assertRelated($comment, 'post', $post, BelongsTo::class);
     }
 }

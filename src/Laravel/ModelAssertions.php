@@ -47,25 +47,10 @@ trait ModelAssertions
     /**
      * @param \Illuminate\Database\Eloquent\Model $model
      * @param string $relation
-     * @param \Illuminate\Database\Eloquent\Model|mixed $actual
-     */
-    public static function assertRelated(Model $model, string $relation, $actual)
-    {
-        PHPUnit::assertInstanceOf(Model::class, $actual);
-        PHPUnit::assertTrue(method_exists($model, $relation));
-        PHPUnit::assertInstanceOf(Relation::class, $model->$relation());
-
-        $related = $model->$relation()->whereKey($actual->getKey())->first();
-        self::assertSame($actual, $related);
-    }
-
-    /**
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string $relation
      * @param string|\Illuminate\Database\Eloquent\Model|mixed $actual
      * @param string|null $type
      */
-    public static function assertRelationship(Model $model, string $relation, $actual, ?string $type = null)
+    public static function assertRelated(Model $model, string $relation, $actual, ?string $type = null)
     {
         PHPUnit::assertTrue(method_exists($model, $relation));
         PHPUnit::assertInstanceOf(Relation::class, $model->$relation());
@@ -81,7 +66,10 @@ trait ModelAssertions
             PHPUnit::assertInstanceOf($actual, $related);
         } else {
             PHPUnit::assertInstanceOf(get_class($actual), $related);
-            self::assertRelated($model, $relation, $actual);
+            self::assertSame(
+                $actual,
+                $model->$relation()->whereKey($actual->getKey())->first()
+            );
         }
     }
 }
