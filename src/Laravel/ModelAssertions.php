@@ -70,14 +70,14 @@ trait ModelAssertions
         PHPUnit::assertTrue(method_exists($model, $relation));
         PHPUnit::assertInstanceOf(Relation::class, $model->$relation());
 
-        if($type) {
+        if ($type) {
             PHPUnit::assertInstanceOf($type, $model->$relation());
         }
 
         $related = $model->$relation()->getRelated();
         PHPUnit::assertInstanceOf(Model::class, $related);
 
-        if(is_string($actual)) {
+        if (is_string($actual)) {
             PHPUnit::assertInstanceOf($actual, $related);
         } else {
             PHPUnit::assertInstanceOf(get_class($actual), $related);
