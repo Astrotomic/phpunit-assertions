@@ -20,6 +20,7 @@
         "phpunit/phpunit": "^9.1"
     },
     "require-dev": {
+        "astrotomic/iso639": "^1.0",
         "egulias/email-validator": "^2.1 || ^3.0",
         "gajus/dindent": "^2.0",
         "giggsey/libphonenumber-for-php": "^8.12",
@@ -30,6 +31,7 @@
         "vinkla/hashids": "^9.0"
     },
     "suggest": {
+        "astrotomic/iso639": "\\Astrotomic\\PhpunitAssertions\\LanguageAssertions (^1.0)",
         "egulias/email-validator": "\\Astrotomic\\PhpunitAssertions\\EmailAssertions (^2.1 || ^3.0)",
         "gajus/dindent": "\\Astrotomic\\PhpunitAssertions\\Laravel\\BladeAssertions (^2.0)",
         "giggsey/libphonenumber-for-php": "\\Astrotomic\\PhpunitAssertions\\PhoneNumberAssertions (^8.12)",

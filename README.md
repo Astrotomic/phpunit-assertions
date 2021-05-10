@@ -27,10 +27,10 @@ This will prevent any method name conflicts with core, your custom or other trai
 `composer require --dev league/iso3166:^3.0`
 
 ```php
-\Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryName('Germany');
-\Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryAlpha2('DE');
-\Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryAlpha3('DEU');
-\Astrotomic\PhpunitAssertions\CountryAssertions::assertCountryNumeric('276');
+\Astrotomic\PhpunitAssertions\CountryAssertions::assertName('Germany');
+\Astrotomic\PhpunitAssertions\CountryAssertions::assertAlpha2('DE');
+\Astrotomic\PhpunitAssertions\CountryAssertions::assertAlpha3('DEU');
+\Astrotomic\PhpunitAssertions\CountryAssertions::assertNumeric('276');
 ```
 
 ### Email
@@ -62,6 +62,15 @@ This will prevent any method name conflicts with core, your custom or other trai
 ```php
 \Astrotomic\PhpunitAssertions\HashidAssertions::assertHashIds('3kTMd', 2, 'this is my salt');
 \Astrotomic\PhpunitAssertions\HashidAssertions::assertHashId('yr8', 'this is my salt');
+```
+
+### Language
+
+`composer require --dev astrotomic/iso639:^1.0`
+
+```php
+\Astrotomic\PhpunitAssertions\LanguageAssertions::assertName('German');
+\Astrotomic\PhpunitAssertions\LanguageAssertions::assertAlpha2('de');
 ```
 
 ### Nullable Type

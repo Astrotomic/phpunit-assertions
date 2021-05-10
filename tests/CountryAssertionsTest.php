@@ -13,7 +13,7 @@ final class CountryAssertionsTest extends TestCase
      */
     public static function it_can_validate_country_by_name(string $actual): void
     {
-        CountryAssertions::assertCountryName($actual);
+        CountryAssertions::assertName($actual);
     }
 
     /**
@@ -22,7 +22,7 @@ final class CountryAssertionsTest extends TestCase
      */
     public static function it_can_validate_country_by_alpha2(string $actual): void
     {
-        CountryAssertions::assertCountryAlpha2($actual);
+        CountryAssertions::assertAlpha2($actual);
     }
 
     /**
@@ -31,7 +31,7 @@ final class CountryAssertionsTest extends TestCase
      */
     public static function it_can_validate_country_by_alpha3(string $actual): void
     {
-        CountryAssertions::assertCountryAlpha3($actual);
+        CountryAssertions::assertAlpha3($actual);
     }
 
     /**
@@ -40,7 +40,7 @@ final class CountryAssertionsTest extends TestCase
      */
     public static function it_can_validate_country_by_numeric(string $actual): void
     {
-        CountryAssertions::assertCountryNumeric($actual);
+        CountryAssertions::assertNumeric($actual);
     }
 
     public function countryName(): iterable
