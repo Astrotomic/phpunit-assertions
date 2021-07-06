@@ -40,7 +40,7 @@ trait EmailAssertions
         [$localPart] = explode('@', $actual, 2);
         [$mailbox] = explode('+', $localPart, 2);
         PHPUnit::assertSame($expected, $mailbox);
-	}
+    }
 
     public static function assertPlusAlias(string $expected, $actual): void
     {
@@ -48,5 +48,5 @@ trait EmailAssertions
         [$localPart] = explode('@', $actual, 2);
         [$mailbox, $alias] = explode('+', $localPart, 2);
         PHPUnit::assertSame($expected, $alias);
-	}
+    }
 }
