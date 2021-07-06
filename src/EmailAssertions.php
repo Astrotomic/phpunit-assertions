@@ -34,19 +34,19 @@ trait EmailAssertions
         PHPUnit::assertSame($expected, $localPart);
     }
 
-	public static function assertPlusMailbox(string $expected, $actual): void
-	{
-		PHPUnit::assertIsString($actual);
-		[$localPart] = explode('@', $actual, 2);
-		[$mailbox] = explode('+', $localPart, 2);
-		PHPUnit::assertSame($expected, $mailbox);
+    public static function assertPlusMailbox(string $expected, $actual): void
+    {
+        PHPUnit::assertIsString($actual);
+        [$localPart] = explode('@', $actual, 2);
+        [$mailbox] = explode('+', $localPart, 2);
+        PHPUnit::assertSame($expected, $mailbox);
 	}
 
 	public static function assertPlusAlias(string $expected, $actual): void
 	{
-		PHPUnit::assertIsString($actual);
-		[$localPart] = explode('@', $actual, 2);
-		[$mailbox, $alias] = explode('+', $localPart, 2);
-		PHPUnit::assertSame($expected, $alias);
+        PHPUnit::assertIsString($actual);
+        [$localPart] = explode('@', $actual, 2);
+        [$mailbox, $alias] = explode('+', $localPart, 2);
+        PHPUnit::assertSame($expected, $alias);
 	}
 }
