@@ -52,7 +52,7 @@ final class EmailAssertionsTest extends TestCase
     {
         $mailbox = self::randomString();
         $alias = self::randomBool();
-        $email = $mailbox . '+' . $alias . '@email.com';
+        $email = $mailbox.'+'.$alias.'@email.com';
 
         EmailAssertions::assertPlusMailbox($mailbox, $email);
     }
@@ -65,7 +65,7 @@ final class EmailAssertionsTest extends TestCase
     {
         $mailbox = self::randomString();
         $alias = self::randomBool();
-        $email = $mailbox . '+' . $alias . '@email.com';
+        $email = $mailbox.'+'.$alias.'@email.com';
 
         EmailAssertions::assertPlusAlias($alias, $email);
     }
