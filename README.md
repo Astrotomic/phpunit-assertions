@@ -42,6 +42,8 @@ This will prevent any method name conflicts with core, your custom or other trai
 \Astrotomic\PhpunitAssertions\EmailAssertions::assertValidStrict('gummibeer@astrotomic.info');
 \Astrotomic\PhpunitAssertions\EmailAssertions::assertDomain('astrotomic.info', 'gummibeer@astrotomic.info');
 \Astrotomic\PhpunitAssertions\EmailAssertions::assertLocalPart('gummibeer', 'gummibeer@astrotomic.info');
+\Astrotomic\PhpunitAssertions\EmailAssertions::assertPlusMailbox('gummibeer', 'gummibeer+news@astrotomic.info');
+\Astrotomic\PhpunitAssertions\EmailAssertions::assertPlusAlias('news', 'gummibeer+news@astrotomic.info');
 ```
 
 ### Geographic

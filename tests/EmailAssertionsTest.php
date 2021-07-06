@@ -43,4 +43,30 @@ final class EmailAssertionsTest extends TestCase
 
         EmailAssertions::assertLocalPart($localPart, $localPart.'@email.com');
     }
+
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public static function it_can_validate_plus_mailbox(): void
+    {
+        $mailbox = self::randomString();
+        $alias = self::randomBool();
+        $email = $mailbox.'+'.$alias.'@email.com';
+
+        EmailAssertions::assertPlusMailbox($mailbox, $email);
+    }
+
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public static function it_can_validate_plus_alias(): void
+    {
+        $mailbox = self::randomString();
+        $alias = self::randomBool();
+        $email = $mailbox.'+'.$alias.'@email.com';
+
+        EmailAssertions::assertPlusAlias($alias, $email);
+    }
 }
