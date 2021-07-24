@@ -46,7 +46,7 @@ trait EmailAssertions
     {
         PHPUnit::assertIsString($actual);
         [$localPart] = explode('@', $actual, 2);
-        [$mailbox, $alias] = explode('+', $localPart, 2);
+        [, $alias] = explode('+', $localPart, 2);
         PHPUnit::assertSame($expected, $alias);
     }
 }

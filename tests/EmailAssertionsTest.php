@@ -51,7 +51,7 @@ final class EmailAssertionsTest extends TestCase
     public static function it_can_validate_plus_mailbox(): void
     {
         $mailbox = self::randomString();
-        $alias = self::randomBool();
+        $alias = self::randomString();
         $email = $mailbox.'+'.$alias.'@email.com';
 
         EmailAssertions::assertPlusMailbox($mailbox, $email);
@@ -64,7 +64,7 @@ final class EmailAssertionsTest extends TestCase
     public static function it_can_validate_plus_alias(): void
     {
         $mailbox = self::randomString();
-        $alias = self::randomBool();
+        $alias = self::randomString();
         $email = $mailbox.'+'.$alias.'@email.com';
 
         EmailAssertions::assertPlusAlias($alias, $email);
