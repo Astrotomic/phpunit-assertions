@@ -28,7 +28,7 @@ trait ArrayAssertions
     {
         PHPUnit::assertIsArray($actual);
 
-        if(array_keys($expected) === range(0, count($expected) - 1)) {
+        if (array_keys($expected) === range(0, count($expected) - 1)) {
             sort($expected);
             sort($actual);
         } else {

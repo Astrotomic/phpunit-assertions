@@ -16,7 +16,7 @@ trait Randomize
 
     protected static function randomBool(): bool
     {
-        return (bool)random_int(0, 1);
+        return (bool) random_int(0, 1);
     }
 
     protected static function randomInt(int $min = PHP_INT_MIN, int $max = PHP_INT_MAX): int

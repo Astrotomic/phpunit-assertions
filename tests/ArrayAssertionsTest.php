@@ -53,7 +53,7 @@ final class ArrayAssertionsTest extends TestCase
 
         $actual = $array;
         $expected = $array;
-        uksort($actual, fn(): int => self::randomInt() <=> self::randomInt());
+        uksort($actual, fn (): int => self::randomInt() <=> self::randomInt());
 
         ArrayAssertions::assertEquals($expected, $actual);
     }
