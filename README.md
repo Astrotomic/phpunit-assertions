@@ -22,6 +22,14 @@ This will prevent any method name conflicts with core, your custom or other trai
 
 ## Assertions
 
+### Array
+
+```php
+\Astrotomic\PhpunitAssertions\ArrayAssertions::assertIndexed(['foo', 'bar']);
+\Astrotomic\PhpunitAssertions\ArrayAssertions::assertAssociative(['foo' => 'bar']);
+\Astrotomic\PhpunitAssertions\ArrayAssertions::assertEquals(['foo', 'bar'], ['bar', 'foo']);
+```
+
 ### Country
 
 `composer require --dev league/iso3166:^3.0`

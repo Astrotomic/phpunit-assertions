@@ -16,12 +16,12 @@ trait Randomize
 
     protected static function randomBool(): bool
     {
-        return boolval(mt_rand(0, 1));
+        return (bool)random_int(0, 1);
     }
 
     protected static function randomInt(int $min = PHP_INT_MIN, int $max = PHP_INT_MAX): int
     {
-        return mt_rand($min, $max);
+        return random_int($min, $max);
     }
 
     protected static function randomFloat(float $min = PHP_INT_MIN, float $max = PHP_INT_MAX): float
@@ -32,5 +32,25 @@ trait Randomize
     protected static function randomElement(array $array)
     {
         return $array[array_rand($array)];
+    }
+
+    protected static function randomArray(int $count, bool $assoc = false): array
+    {
+        $array = array_fill(0, $count, null);
+
+        $array = array_map(static function (): string {
+            return self::randomString(self::randomInt(4, 64));
+        }, $array);
+
+        if ($assoc) {
+            $values = $array;
+            $array = [];
+
+            foreach ($values as $value) {
+                $array[self::randomString(self::randomInt(4, 64))] = $value;
+            }
+        }
+
+        return $array;
     }
 }
