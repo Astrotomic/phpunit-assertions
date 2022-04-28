@@ -5,7 +5,7 @@ namespace Astrotomic\PhpunitAssertions\Laravel;
 use Illuminate\Support\Enumerable;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait CollectionAssertions
+final class CollectionAssertions
 {
     public static function assertContains(Enumerable $collection, $expected): void
     {

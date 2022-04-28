@@ -4,7 +4,7 @@ namespace Astrotomic\PhpunitAssertions;
 
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait ArrayAssertions
+final class ArrayAssertions
 {
     public static function assertIndexed($actual): void
     {

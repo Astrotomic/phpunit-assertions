@@ -4,7 +4,7 @@ namespace Astrotomic\PhpunitAssertions;
 
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait GeographicAssertions
+final class GeographicAssertions
 {
     public static function assertLatitude($actual): void
     {

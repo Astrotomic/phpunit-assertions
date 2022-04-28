@@ -4,7 +4,7 @@ namespace Astrotomic\PhpunitAssertions;
 
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait NullableTypeAssertions
+final class NullableTypeAssertions
 {
     /**
      * @param string|mixed|null $actual

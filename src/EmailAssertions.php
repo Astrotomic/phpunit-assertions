@@ -6,7 +6,7 @@ use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait EmailAssertions
+final class EmailAssertions
 {
     public static function assertValidLoose($actual): void
     {

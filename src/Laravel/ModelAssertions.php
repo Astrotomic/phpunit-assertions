@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Constraints\HasInDatabase;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait ModelAssertions
+final class ModelAssertions
 {
     /**
      * @param string|\Illuminate\Database\Eloquent\Model $table

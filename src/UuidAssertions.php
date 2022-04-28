@@ -5,7 +5,7 @@ namespace Astrotomic\PhpunitAssertions;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Ramsey\Uuid\Uuid;
 
-trait UuidAssertions
+final class UuidAssertions
 {
     public static function assertUuid($actual): void
     {

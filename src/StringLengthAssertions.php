@@ -4,7 +4,7 @@ namespace Astrotomic\PhpunitAssertions;
 
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait StringLengthAssertions
+final class StringLengthAssertions
 {
     public static function assertSame(int $length, $actual): void
     {

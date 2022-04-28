@@ -4,7 +4,7 @@ namespace Astrotomic\PhpunitAssertions;
 
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait UrlAssertions
+final class UrlAssertions
 {
     public static function assertValidLoose($actual): void
     {

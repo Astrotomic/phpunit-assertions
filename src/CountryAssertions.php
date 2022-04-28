@@ -5,7 +5,7 @@ namespace Astrotomic\PhpunitAssertions;
 use League\ISO3166\ISO3166;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait CountryAssertions
+final class CountryAssertions
 {
     public static function assertName($actual): void
     {

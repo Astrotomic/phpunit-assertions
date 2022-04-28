@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait BladeAssertions
+final class BladeAssertions
 {
     public static function assertRenderEquals(string $expected, string $template, array $data = []): void
     {

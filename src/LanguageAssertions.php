@@ -5,7 +5,7 @@ namespace Astrotomic\PhpunitAssertions;
 use Astrotomic\ISO639\ISO639;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait LanguageAssertions
+final class LanguageAssertions
 {
     public static function assertName($actual): void
     {

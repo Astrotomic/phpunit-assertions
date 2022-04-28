@@ -5,7 +5,7 @@ namespace Astrotomic\PhpunitAssertions\Laravel;
 use Astrotomic\PhpunitAssertions\HashidAssertions as BaseHashidAssertions;
 use Vinkla\Hashids\Facades\Hashids;
 
-trait HashidAssertions
+final class HashidAssertions
 {
     public static function assertHashIds($actual, ?int $count = null, ?string $connection = null): void
     {

@@ -5,7 +5,7 @@ namespace Astrotomic\PhpunitAssertions;
 use Hashids\Hashids;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-trait HashidAssertions
+final class HashidAssertions
 {
     public static function assertHashIds(
         $actual,

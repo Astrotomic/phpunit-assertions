@@ -7,7 +7,7 @@ use libphonenumber\PhoneNumberUtil;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Throwable;
 
-trait PhoneNumberAssertions
+final class PhoneNumberAssertions
 {
     public static function assertE164($actual): void
     {
