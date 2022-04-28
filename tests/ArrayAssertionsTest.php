@@ -57,4 +57,19 @@ final class ArrayAssertionsTest extends TestCase
 
         ArrayAssertions::assertEquals($expected, $actual);
     }
+
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public static function it_can_validate_associative_array_subset(): void
+    {
+        $array = self::randomArray(self::randomInt(5, 20), true);
+
+        $actual = $array;
+        $expected = array_slice($array, 0, ceil(count($array) / self::randomInt(2, 4)), true);
+        uksort($expected, fn (): int => self::randomInt() <=> self::randomInt());
+
+        ArrayAssertions::assertSubset($expected, $actual);
+    }
 }

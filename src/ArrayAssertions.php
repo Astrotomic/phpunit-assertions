@@ -38,4 +38,14 @@ trait ArrayAssertions
 
         PHPUnit::assertEquals($expected, $actual);
     }
+
+    public static function assertSubset(array $expected, $actual): void
+    {
+        PHPUnit::assertIsArray($actual);
+
+        foreach($expected as $key => $value) {
+            PHPUnit::assertArrayHasKey($key, $actual);
+            PHPUnit::assertEquals($value, $actual[$key]);
+        }
+    }
 }
