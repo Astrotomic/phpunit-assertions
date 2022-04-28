@@ -7,7 +7,7 @@ use PHPUnit\Framework\Assert as PHPUnit;
 final class NullableTypeAssertions
 {
     /**
-     * @param string|mixed|null $actual
+     * @param  string|mixed|null  $actual
      */
     public static function assertIsNullableString($actual): void
     {
@@ -19,7 +19,7 @@ final class NullableTypeAssertions
     }
 
     /**
-     * @param int|mixed|null $actual
+     * @param  int|mixed|null  $actual
      */
     public static function assertIsNullableInt($actual): void
     {
@@ -31,7 +31,7 @@ final class NullableTypeAssertions
     }
 
     /**
-     * @param float|mixed|null $actual
+     * @param  float|mixed|null  $actual
      */
     public static function assertIsNullableFloat($actual): void
     {
@@ -43,7 +43,7 @@ final class NullableTypeAssertions
     }
 
     /**
-     * @param array|mixed|null $actual
+     * @param  array|mixed|null  $actual
      */
     public static function assertIsNullableArray($actual): void
     {
@@ -55,7 +55,7 @@ final class NullableTypeAssertions
     }
 
     /**
-     * @param bool|mixed|null $actual
+     * @param  bool|mixed|null  $actual
      */
     public static function assertIsNullableBool($actual): void
     {
@@ -67,9 +67,9 @@ final class NullableTypeAssertions
     }
 
     /**
-     * @param bool $condition
-     * @param string $type
-     * @param mixed|null $actual
+     * @param  bool  $condition
+     * @param  string  $type
+     * @param  mixed|null  $actual
      */
     protected static function assertIsNullableType(bool $condition, string $type, $actual): void
     {

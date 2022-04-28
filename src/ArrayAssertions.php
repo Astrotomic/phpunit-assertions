@@ -43,7 +43,7 @@ final class ArrayAssertions
     {
         PHPUnit::assertIsArray($actual);
 
-        foreach($expected as $key => $value) {
+        foreach ($expected as $key => $value) {
             PHPUnit::assertArrayHasKey($key, $actual);
             PHPUnit::assertEquals($value, $actual[$key]);
         }
