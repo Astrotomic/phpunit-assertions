@@ -1,5 +1,15 @@
 # PHPUnit Assertions
 
+[![Latest Version](http://img.shields.io/packagist/v/astrotomic/phpunit-assertions.svg?label=Release&style=for-the-badge)](https://packagist.org/packages/astrotomic/phpunit-assertions)
+[![MIT License](https://img.shields.io/github/license/Astrotomic/phpunit-assertions.svg?label=License&color=blue&style=for-the-badge)](https://github.com/Astrotomic/phpunit-assertions/blob/master/LICENSE)
+[![Offset Earth](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-green?style=for-the-badge)](https://forest.astrotomic.info)
+[![Larabelles](https://img.shields.io/badge/Larabelles-%F0%9F%A6%84-lightpink?style=for-the-badge)](https://larabelles.com)
+
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Astrotomic/phpunit-assertions/run-tests?style=flat-square&logoColor=white&logo=github&label=Tests)](https://github.com/Astrotomic/phpunit-assertions/actions?query=workflow%3Apest)
+[![Total Downloads](https://img.shields.io/packagist/dt/astrotomic/phpunit-assertions.svg?label=Downloads&style=flat-square)](https://packagist.org/packages/astrotomic/phpunit-assertions)
+[![Trees](https://img.shields.io/ecologi/trees/astrotomic?style=flat-square)](https://forest.astrotomic.info)
+[![Carbon](https://img.shields.io/ecologi/carbon/astrotomic?style=flat-square)](https://forest.astrotomic.info)
+
 This package provides a set of common [PHPUnit](https://phpunit.de/) custom assertions.
 Some require optional packages - check the `composer.json[suggest]` section for more details.
 
