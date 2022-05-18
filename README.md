@@ -132,6 +132,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 \Astrotomic\PhpunitAssertions\UrlAssertions::assertScheme('https', 'https://astrotomic.info');
 \Astrotomic\PhpunitAssertions\UrlAssertions::assertHost('astrotomic.info', 'https://astrotomic.info');
 \Astrotomic\PhpunitAssertions\UrlAssertions::assertPath('/contributor/gummibeer/', 'https://astrotomic.info/contributor/gummibeer/');
+\Astrotomic\PhpunitAssertions\UrlAssertions::assertQuery(['_' => '123', 'q' => 'search'], 'https://astrotomic.info?q=search&_=123');
 \Astrotomic\PhpunitAssertions\UrlAssertions::assertComponent('gummibeer', 'https://gummibeer@astrotomic.info', PHP_URL_USER);
 ```
 

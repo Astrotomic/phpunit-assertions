@@ -27,6 +27,18 @@ final class UrlAssertions
         self::assertComponent($expected, $actual, PHP_URL_PATH);
     }
 
+    public static function assertQuery(array $expected, $actual): void
+    {
+        $queryStr = parse_url($actual, PHP_URL_QUERY);
+        PHPUnit::assertIsString($queryStr);
+
+        $query = [];
+        parse_str($queryStr, $query);
+        PHPUnit::assertIsArray($query);
+
+        ArrayAssertions::assertEquals($expected, $query);
+    }
+
     public static function assertComponent($expected, $actual, int $component): void
     {
         self::assertValidLoose($actual);

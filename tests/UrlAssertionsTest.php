@@ -56,4 +56,19 @@ final class UrlAssertionsTest extends TestCase
 
         UrlAssertions::assertPath($path, 'https://'.self::randomString().'.com'.$path);
     }
+
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public static function it_can_validate_query(): void
+    {
+        $query = [
+            self::randomString(2) => self::randomString(),
+            self::randomString(2) => self::randomString(),
+            self::randomString(2) => self::randomString(),
+        ];
+
+        UrlAssertions::assertQuery($query, 'https://'.self::randomString().'.com?'.http_build_query($query));
+    }
 }
