@@ -39,7 +39,7 @@ trait Randomize
         $array = array_fill(0, $count, null);
 
         $array = array_map(static function (): string {
-            return self::randomString(self::randomInt(4, 64));
+            return self::randomString(self::randomInt(8, 64));
         }, $array);
 
         if ($assoc) {
@@ -47,7 +47,7 @@ trait Randomize
             $array = [];
 
             foreach ($values as $value) {
-                $array[self::randomString(self::randomInt(4, 64))] = $value;
+                $array[self::randomString(self::randomInt(8, 64))] = $value;
             }
         }
 

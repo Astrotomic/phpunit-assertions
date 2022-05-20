@@ -137,6 +137,15 @@ This will prevent any method name conflicts with core, your custom or other trai
 \Astrotomic\PhpunitAssertions\UrlAssertions::assertComponent('gummibeer', 'https://gummibeer@astrotomic.info', PHP_URL_USER);
 ```
 
+### Path
+
+```php
+\Astrotomic\PhpunitAssertions\PathAssertions::assertDirname('/foo/bar', '/foo/bar/image.jpg');
+\Astrotomic\PhpunitAssertions\PathAssertions::assertBasename('image.jpg', '/foo/bar/image.jpg');
+\Astrotomic\PhpunitAssertions\PathAssertions::assertFilename('image', '/foo/bar/image.jpg');
+\Astrotomic\PhpunitAssertions\PathAssertions::assertExtension('jpg', '/foo/bar/image.jpg');
+```
+
 ### UUID
 
 `composer require --dev ramsey/uuid:^4.0`
