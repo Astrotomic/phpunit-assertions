@@ -39,6 +39,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 \Astrotomic\PhpunitAssertions\ArrayAssertions::assertAssociative(['foo' => 'bar']);
 \Astrotomic\PhpunitAssertions\ArrayAssertions::assertEquals(['foo', 'bar'], ['bar', 'foo']);
 \Astrotomic\PhpunitAssertions\ArrayAssertions::assertSubset(['foo' => 'bar'], ['baz' => 'foo', 'foo' => 'bar']);
+\Astrotomic\PhpunitAssertions\ArrayAssertions::assertContainsAll(['foo', 'bar'], ['baz', 'foo', 'lorem', 'ipsum', 'bar']);
 ```
 
 ### Country

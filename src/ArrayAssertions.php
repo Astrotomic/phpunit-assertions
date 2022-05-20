@@ -48,4 +48,13 @@ final class ArrayAssertions
             PHPUnit::assertEquals($value, $actual[$key]);
         }
     }
+
+    public static function assertContainsAll(array $expected, $actual): void
+    {
+        PHPUnit::assertIsArray($actual);
+
+        foreach ($expected as $value) {
+            PHPUnit::assertContains($value, $actual);
+        }
+    }
 }
