@@ -31,4 +31,23 @@ final class PathAssertions
         PHPUnit::assertIsString($actual);
         PHPUnit::assertSame($expected, pathinfo($actual, $component));
     }
+
+    private static function agnosticPath(string $path): string
+    {
+        if (DIRECTORY_SEPARATOR === '/') {
+            if (str_contains($path, '\\')) {
+                return str_replace('\\', DIRECTORY_SEPARATOR, $path);
+            }
+            return $path;
+        }
+
+        return str_replace('/', DIRECTORY_SEPARATOR, $path);
+    }
+
+    public static function assertOsAgnosticPath(string $expected, $actual): void
+    {
+        $osNormalizedExpected = PathAssertions::agnosticPath($expected);
+        PHPUnit::assertIsString($actual);
+        PHPUnit::assertSame($osNormalizedExpected, $actual);
+    }
 }

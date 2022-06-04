@@ -57,4 +57,39 @@ final class PathAssertionsTest extends TestCase
 
         PathAssertions::assertExtension($extension, $directory.'/'.$filename.'.'.$extension);
     }
+
+    private static function get_expected_path(): string
+    {
+        // Intentionally set the "expected" path to opposite of what should work on the platform.
+        if (PHP_OS_FAMILY !== "Windows") {
+            return dirname(__DIR__) . '\tests\Utils';
+        }
+
+        return dirname(__DIR__) . '/tests/Utils';
+    }
+
+    private static function get_actual_path(): string
+    {
+        return realpath(dirname(__DIR__) . '/tests/Utils');
+    }
+
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public static function it_can_validate_os_agnostic_paths(): void
+    {
+        $expected = static::get_expected_path();
+        PathAssertions::assertOsAgnosticPath($expected, static::get_actual_path());
+    }
+
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public static function it_can_validate_os_gnostic_paths_fail(): void
+    {
+        $expected = static::get_expected_path();
+        static::assertNotEquals($expected, static::get_actual_path());
+    }
 }
