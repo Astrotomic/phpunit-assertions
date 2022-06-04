@@ -80,16 +80,7 @@ final class PathAssertionsTest extends TestCase
     public static function it_can_validate_os_agnostic_paths(): void
     {
         $expected = static::os_agnostic_get_expected_path(true);
-        PathAssertions::assertOsAgnosticPath($expected, realpath(dirname(__DIR__) . '/tests/Utils'));
-    }
-
-    /**
-     * @test
-     * @dataProvider hundredTimes
-     */
-    public static function it_can_validate_os_gnostic_paths_fail(): void
-    {
-        $expected = static::os_agnostic_get_expected_path();
         static::assertNotEquals($expected, realpath(dirname(__DIR__) . '/tests/Utils'));
+        PathAssertions::assertOsAgnosticPath($expected, realpath(dirname(__DIR__) . '/tests/Utils'));
     }
 }
