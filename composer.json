@@ -17,7 +17,7 @@
     "homepage": "https://github.com/Astrotomic/phpunit-assertions",
     "require": {
         "php": "^7.4 || ^8.0",
-        "phpunit/phpunit": "^9.1"
+        "phpunit/phpunit": "^9.1 || ^10.0"
     },
     "require-dev": {
         "astrotomic/iso639": "^1.0",
