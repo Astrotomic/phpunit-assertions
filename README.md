@@ -144,6 +144,7 @@ This will prevent any method name conflicts with core, your custom or other trai
 \Astrotomic\PhpunitAssertions\PathAssertions::assertBasename('image.jpg', '/foo/bar/image.jpg');
 \Astrotomic\PhpunitAssertions\PathAssertions::assertFilename('image', '/foo/bar/image.jpg');
 \Astrotomic\PhpunitAssertions\PathAssertions::assertExtension('jpg', '/foo/bar/image.jpg');
+\Astrotomic\PhpunitAssertions\PathAssertions::assertOsAgnosticPath(__DIR__ . '/resources/css/main.css', __DIR__ . '\resources\css\main.css');
 ```
 
 ### UUID

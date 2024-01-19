@@ -57,4 +57,30 @@ final class PathAssertionsTest extends TestCase
 
         PathAssertions::assertExtension($extension, $directory.'/'.$filename.'.'.$extension);
     }
+
+    /**
+     * Detect the OS of the PHP in use and return a path with opposite DIR seperator.
+     *
+     * When given the rand: true parameter it will sometimes provide mixed results.
+     */
+    private static function os_agnostic_get_expected_path(bool $rand = false): string
+    {
+        // Intentionally set the "expected" path to opposite of what should work on the platform.
+        if (PHP_OS_FAMILY !== "Windows" || ($rand === true && 1 === self::randomInt(0, 4))) {
+            return dirname(__DIR__) . '\tests\Utils';
+        }
+
+        return dirname(__DIR__) . '/tests/Utils';
+    }
+
+    /**
+     * @test
+     * @dataProvider hundredTimes
+     */
+    public static function it_can_validate_os_agnostic_paths(): void
+    {
+        $expected = static::os_agnostic_get_expected_path(true);
+        static::assertNotEquals($expected, realpath(dirname(__DIR__) . '/tests/Utils'));
+        PathAssertions::assertOsAgnosticPath($expected, realpath(dirname(__DIR__) . '/tests/Utils'));
+    }
 }
