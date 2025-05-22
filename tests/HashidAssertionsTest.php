@@ -9,16 +9,17 @@ final class HashidAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_hashid(): void
     {
-        $salt = static::randomString();
-        $length = static::randomInt(0, 32);
+        $salt = self::randomString();
+        $length = self::randomInt(0, 32);
         $hashid = new Hashids($salt, $length);
 
         HashidAssertions::assertHashId(
-            $hashid->encode(static::randomInt(0)),
+            $hashid->encode(self::randomInt(0)),
             $salt,
             $length
         );
@@ -26,15 +27,16 @@ final class HashidAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_hashids(): void
     {
-        $salt = static::randomString();
-        $length = static::randomInt(0, 32);
+        $salt = self::randomString();
+        $length = self::randomInt(0, 32);
         $hashid = new Hashids($salt, $length);
 
-        $ids = array_map(fn () => static::randomInt(0), range(0, static::randomInt(2, 20)));
+        $ids = array_map(fn () => self::randomInt(0), range(0, self::randomInt(2, 20)));
 
         HashidAssertions::assertHashIds(
             $hashid->encode($ids),

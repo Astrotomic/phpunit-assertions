@@ -9,6 +9,7 @@ final class UuidAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_uuid_v1(): void
@@ -20,6 +21,7 @@ final class UuidAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_uuid_v2(): void
@@ -31,6 +33,7 @@ final class UuidAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_uuid_v3(): void
@@ -42,6 +45,7 @@ final class UuidAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_uuid_v4(): void
@@ -53,6 +57,7 @@ final class UuidAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_uuid_v5(): void
@@ -64,6 +69,7 @@ final class UuidAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_uuid_v6(): void

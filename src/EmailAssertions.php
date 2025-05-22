@@ -17,7 +17,7 @@ final class EmailAssertions
     public static function assertValidStrict($actual): void
     {
         PHPUnit::assertIsString($actual);
-        PHPUnit::assertTrue((new EmailValidator())->isValid($actual, new RFCValidation()));
+        PHPUnit::assertTrue((new EmailValidator)->isValid($actual, new RFCValidation));
     }
 
     public static function assertDomain(string $expected, $actual): void

@@ -8,31 +8,34 @@ final class GeographicAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_latitude(): void
     {
-        GeographicAssertions::assertLatitude(static::randomFloat(-90, 90));
+        GeographicAssertions::assertLatitude(self::randomFloat(-90, 90));
     }
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_longitude(): void
     {
-        GeographicAssertions::assertLongitude(static::randomFloat(-180, 180));
+        GeographicAssertions::assertLongitude(self::randomFloat(-180, 180));
     }
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_array_of_coordinates(): void
     {
         $coords = [
-            'lat' => static::randomFloat(-90, 90),
-            'lng' => static::randomFloat(-180, 180),
+            'lat' => self::randomFloat(-90, 90),
+            'lng' => self::randomFloat(-180, 180),
         ];
 
         GeographicAssertions::assertCoordinates($coords);
@@ -40,16 +43,17 @@ final class GeographicAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_array_of_coordinates_with_custom_keys(): void
     {
-        $lat = 'lat_'.static::randomString();
-        $lng = 'lng_'.static::randomString();
+        $lat = 'lat_'.self::randomString();
+        $lng = 'lng_'.self::randomString();
 
         $coords = [
-            $lat => static::randomFloat(-90, 90),
-            $lng => static::randomFloat(-180, 180),
+            $lat => self::randomFloat(-90, 90),
+            $lng => self::randomFloat(-180, 180),
         ];
 
         GeographicAssertions::assertCoordinates($coords, $lat, $lng);

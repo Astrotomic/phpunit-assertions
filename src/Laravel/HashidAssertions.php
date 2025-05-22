@@ -22,6 +22,6 @@ final class HashidAssertions
 
     public static function assertHashId($actual, ?string $connection = null): void
     {
-        static::assertHashIds($actual, 1, $connection);
+        self::assertHashIds($actual, 1, $connection);
     }
 }

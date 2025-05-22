@@ -8,6 +8,7 @@ final class ArrayAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_array_is_indexed(): void
@@ -19,6 +20,7 @@ final class ArrayAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_array_is_associative(): void
@@ -30,6 +32,7 @@ final class ArrayAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_indexed_array_equality(): void
@@ -45,6 +48,7 @@ final class ArrayAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_associative_array_equality(): void
@@ -60,6 +64,7 @@ final class ArrayAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_associative_array_subset(): void
@@ -75,6 +80,7 @@ final class ArrayAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_indexed_array_contains_all(): void
@@ -90,6 +96,7 @@ final class ArrayAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_associative_array_contains_all(): void

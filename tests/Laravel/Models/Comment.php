@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 class Comment extends Model
 {
     protected $table = 'comments';
+
     protected $guarded = [];
 
     public static function migrate(): void

@@ -8,6 +8,7 @@ final class PathAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_dirname(): void
@@ -21,6 +22,7 @@ final class PathAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_basename(): void
@@ -34,6 +36,7 @@ final class PathAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_filename(): void
@@ -47,6 +50,7 @@ final class PathAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_extension(): void

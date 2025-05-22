@@ -41,6 +41,6 @@ final class HashidAssertions
         int $minHashLength = 0,
         ?string $alphabet = null
     ): void {
-        static::assertHashIds($actual, 1, $salt, $minHashLength, $alphabet);
+        self::assertHashIds($actual, 1, $salt, $minHashLength, $alphabet);
     }
 }

@@ -9,11 +9,12 @@ final class CollectionAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public function it_can_validate_contains(): void
     {
-        $value = static::randomString(8);
+        $value = self::randomString(8);
 
         $collection = new Collection([
             $value,

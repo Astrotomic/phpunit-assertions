@@ -8,6 +8,7 @@ final class BladeAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public function it_can_validate_render(): void

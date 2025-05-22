@@ -8,6 +8,7 @@ final class UrlAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_loose(): void
@@ -17,6 +18,7 @@ final class UrlAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_scheme(): void
@@ -37,6 +39,7 @@ final class UrlAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_host(): void
@@ -48,6 +51,7 @@ final class UrlAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_path(): void
@@ -59,6 +63,7 @@ final class UrlAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_query(): void

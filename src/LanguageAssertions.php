@@ -10,7 +10,7 @@ final class LanguageAssertions
     public static function assertName($actual): void
     {
         PHPUnit::assertIsString($actual);
-        $language = (new ISO639())->name($actual);
+        $language = (new ISO639)->name($actual);
         PHPUnit::assertIsArray($language);
     }
 

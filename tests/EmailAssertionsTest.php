@@ -8,6 +8,7 @@ final class EmailAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_loose(): void
@@ -17,6 +18,7 @@ final class EmailAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_strict(): void
@@ -26,6 +28,7 @@ final class EmailAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_domain(): void
@@ -35,6 +38,7 @@ final class EmailAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_local_part(): void
@@ -46,6 +50,7 @@ final class EmailAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_plus_mailbox(): void
@@ -59,6 +64,7 @@ final class EmailAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_plus_alias(): void

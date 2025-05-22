@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 class Post extends Model
 {
     protected $table = 'posts';
+
     protected $guarded = [];
 
     public static function migrate(): void

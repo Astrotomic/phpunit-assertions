@@ -8,6 +8,7 @@ final class PhoneNumberAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider thousandTimes
      */
     public static function it_can_validate_e164(): void
@@ -17,6 +18,7 @@ final class PhoneNumberAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider thousandTimes
      */
     public static function it_can_validate_phone_number(): void
@@ -26,6 +28,7 @@ final class PhoneNumberAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider thousandTimes
      */
     public static function it_can_validate_phone_number_for_region(): void

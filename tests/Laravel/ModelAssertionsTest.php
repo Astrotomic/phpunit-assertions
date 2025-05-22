@@ -20,6 +20,7 @@ final class ModelAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public function it_can_validate_exists(): void
@@ -33,6 +34,7 @@ final class ModelAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public function it_can_validate_same(): void
@@ -46,6 +48,7 @@ final class ModelAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public function it_can_validate_relationship(): void

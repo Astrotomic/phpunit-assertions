@@ -11,7 +11,7 @@ final class NullableTypeAssertions
      */
     public static function assertIsNullableString($actual): void
     {
-        static::assertIsNullableType(
+        self::assertIsNullableType(
             is_null($actual) || is_string($actual),
             'string',
             $actual
@@ -23,7 +23,7 @@ final class NullableTypeAssertions
      */
     public static function assertIsNullableInt($actual): void
     {
-        static::assertIsNullableType(
+        self::assertIsNullableType(
             is_null($actual) || is_int($actual),
             'int',
             $actual
@@ -35,7 +35,7 @@ final class NullableTypeAssertions
      */
     public static function assertIsNullableFloat($actual): void
     {
-        static::assertIsNullableType(
+        self::assertIsNullableType(
             is_null($actual) || (is_numeric($actual) && (is_int($actual) || is_float($actual))),
             'float',
             $actual
@@ -47,7 +47,7 @@ final class NullableTypeAssertions
      */
     public static function assertIsNullableArray($actual): void
     {
-        static::assertIsNullableType(
+        self::assertIsNullableType(
             is_null($actual) || is_array($actual),
             'array',
             $actual
@@ -59,7 +59,7 @@ final class NullableTypeAssertions
      */
     public static function assertIsNullableBool($actual): void
     {
-        static::assertIsNullableType(
+        self::assertIsNullableType(
             is_null($actual) || is_bool($actual),
             'boolean',
             $actual
@@ -67,8 +67,6 @@ final class NullableTypeAssertions
     }
 
     /**
-     * @param  bool  $condition
-     * @param  string  $type
      * @param  mixed|null  $actual
      */
     protected static function assertIsNullableType(bool $condition, string $type, $actual): void

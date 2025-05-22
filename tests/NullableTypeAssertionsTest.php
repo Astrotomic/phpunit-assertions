@@ -8,65 +8,70 @@ final class NullableTypeAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_nullable_string(): void
     {
         NullableTypeAssertions::assertIsNullableString(
-            static::randomBool()
-                ? static::randomString()
+            self::randomBool()
+                ? self::randomString()
                 : null
         );
     }
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_nullable_int(): void
     {
         NullableTypeAssertions::assertIsNullableInt(
-            static::randomBool()
-                ? static::randomInt()
+            self::randomBool()
+                ? self::randomInt()
                 : null
         );
     }
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_nullable_float(): void
     {
         NullableTypeAssertions::assertIsNullableFloat(
-            static::randomBool()
-                ? static::randomFloat()
+            self::randomBool()
+                ? self::randomFloat()
                 : null
         );
     }
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_nullable_array(): void
     {
         NullableTypeAssertions::assertIsNullableArray(
-            static::randomBool()
-                ? [static::randomString() => static::randomInt()]
+            self::randomBool()
+                ? [self::randomString() => self::randomInt()]
                 : null
         );
     }
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_nullable_bool(): void
     {
         NullableTypeAssertions::assertIsNullableBool(
-            static::randomBool()
-                ? static::randomBool()
+            self::randomBool()
+                ? self::randomBool()
                 : null
         );
     }

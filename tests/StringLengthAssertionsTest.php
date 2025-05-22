@@ -8,6 +8,7 @@ final class StringLengthAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_length(): void
@@ -17,6 +18,7 @@ final class StringLengthAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_not_length(): void
@@ -28,6 +30,7 @@ final class StringLengthAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_length_less_than(): void
@@ -37,6 +40,7 @@ final class StringLengthAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_length_less_than_or_equal(): void
@@ -47,6 +51,7 @@ final class StringLengthAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_length_greater_than(): void
@@ -56,6 +61,7 @@ final class StringLengthAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider hundredTimes
      */
     public static function it_can_validate_length_greater_than_or_equal(): void

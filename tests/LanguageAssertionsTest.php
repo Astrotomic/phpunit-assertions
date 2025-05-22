@@ -9,6 +9,7 @@ final class LanguageAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider languageName
      */
     public static function it_can_validate_language_by_name(string $actual): void
@@ -18,6 +19,7 @@ final class LanguageAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider languageAlpha2
      */
     public static function it_can_validate_language_by_alpha2(string $actual): void
@@ -25,13 +27,13 @@ final class LanguageAssertionsTest extends TestCase
         LanguageAssertions::assertAlpha2($actual);
     }
 
-    public function languageName(): iterable
+    public static function languageName(): iterable
     {
-        return array_map(fn (array $country): array => [$country[ISO639::KEY_NAME]], (new ISO639())->all());
+        return array_map(fn (array $country): array => [$country[ISO639::KEY_NAME]], (new ISO639)->all());
     }
 
-    public function languageAlpha2(): iterable
+    public static function languageAlpha2(): iterable
     {
-        return array_map(fn (array $country): array => [$country[ISO639::KEY_639_1]], (new ISO639())->all());
+        return array_map(fn (array $country): array => [$country[ISO639::KEY_639_1]], (new ISO639)->all());
     }
 }

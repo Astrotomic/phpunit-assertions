@@ -9,6 +9,7 @@ final class CountryAssertionsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider countryName
      */
     public static function it_can_validate_country_by_name(string $actual): void
@@ -18,6 +19,7 @@ final class CountryAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider countryAlpha2
      */
     public static function it_can_validate_country_by_alpha2(string $actual): void
@@ -27,6 +29,7 @@ final class CountryAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider countryAlpha3
      */
     public static function it_can_validate_country_by_alpha3(string $actual): void
@@ -36,6 +39,7 @@ final class CountryAssertionsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider countryNumeric
      */
     public static function it_can_validate_country_by_numeric(string $actual): void
@@ -43,23 +47,23 @@ final class CountryAssertionsTest extends TestCase
         CountryAssertions::assertNumeric($actual);
     }
 
-    public function countryName(): iterable
+    public static function countryName(): iterable
     {
-        return array_map(fn (array $country): array => [$country[ISO3166::KEY_NAME]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_NAME]], (new ISO3166)->all());
     }
 
-    public function countryAlpha2(): iterable
+    public static function countryAlpha2(): iterable
     {
-        return array_map(fn (array $country): array => [$country[ISO3166::KEY_ALPHA2]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_ALPHA2]], (new ISO3166)->all());
     }
 
-    public function countryAlpha3(): iterable
+    public static function countryAlpha3(): iterable
     {
-        return array_map(fn (array $country): array => [$country[ISO3166::KEY_ALPHA3]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_ALPHA3]], (new ISO3166)->all());
     }
 
-    public function countryNumeric(): iterable
+    public static function countryNumeric(): iterable
     {
-        return array_map(fn (array $country): array => [$country[ISO3166::KEY_NUMERIC]], (new ISO3166())->all());
+        return array_map(fn (array $country): array => [$country[ISO3166::KEY_NUMERIC]], (new ISO3166)->all());
     }
 }

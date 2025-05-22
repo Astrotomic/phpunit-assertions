@@ -11,11 +11,11 @@ final class BladeAssertions
 {
     public static function assertRenderEquals(string $expected, string $template, array $data = []): void
     {
-        $indenter = new Indenter();
+        $indenter = new Indenter;
 
         PHPUnit::assertSame(
             $indenter->indent($expected),
-            $indenter->indent((string) static::render($template, $data))
+            $indenter->indent((string) self::render($template, $data))
         );
     }
 
