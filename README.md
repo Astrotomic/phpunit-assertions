@@ -75,6 +75,12 @@ This will prevent any method name conflicts with core, your custom or other trai
     'lat' => 53.551085,
     'lng' => 9.993682,
 ]);
+
+$hamburg = ['lat' => 53.551085, 'lng' => 9.993682];
+$berlin = ['lat' => 52.520008, 'lng' => 13.404954];
+
+\Astrotomic\PhpunitAssertions\GeographicAssertions::assertDistanceGreaterThanOrEqual(255_000, $hamburg, $berlin);
+\Astrotomic\PhpunitAssertions\GeographicAssertions::assertDistanceLessThanOrEqual(256_000, $hamburg, $berlin);
 ```
 
 ### HashID
