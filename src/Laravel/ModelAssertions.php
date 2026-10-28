@@ -11,7 +11,7 @@ use PHPUnit\Framework\Assert as PHPUnit;
 final class ModelAssertions
 {
     /**
-     * @param  string|\Illuminate\Database\Eloquent\Model  $table
+     * @param  string|Model  $table
      */
     public static function assertExists($table, array $data = [], ?string $connection = null): void
     {
@@ -32,7 +32,7 @@ final class ModelAssertions
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|mixed  $actual
+     * @param  Model|mixed  $actual
      */
     public static function assertSame(Model $expected, $actual): void
     {
@@ -42,7 +42,7 @@ final class ModelAssertions
     }
 
     /**
-     * @param  string|\Illuminate\Database\Eloquent\Model|mixed  $actual
+     * @param  string|Model|mixed  $actual
      */
     public static function assertRelated(Model $model, string $relation, $actual, ?string $type = null)
     {
