@@ -10,7 +10,7 @@ final class HashAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[a-fA-F0-9]{32}$/',
+            '/^[a-fA-F0-9]{32}\z/',
             $actual,
             'Failed asserting that the value is a valid MD5 digest.'
         );
@@ -20,7 +20,7 @@ final class HashAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[a-fA-F0-9]{64}$/',
+            '/^[a-fA-F0-9]{64}\z/',
             $actual,
             'Failed asserting that the value is a valid SHA-256 digest.'
         );

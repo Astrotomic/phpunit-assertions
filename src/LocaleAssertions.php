@@ -36,7 +36,7 @@ final class LocaleAssertions
         'zh-xiang',
     ];
 
-    private const LANGUAGE_TAG_PATTERN = '/^(?<language>[A-Za-z]{2,8})(?<extlangs>(?:-[A-Za-z]{3}){0,3})(?:-(?<script>[A-Za-z]{4}))?(?:-(?<region>[A-Za-z]{2}|[0-9]{3}))?(?<variants>(?:-(?:[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*)(?<extensions>(?:-[0-9A-WY-Za-wy-z](?:-[A-Za-z0-9]{2,8})+)*)(?<privateuse>(?:-[xX](?:-[A-Za-z0-9]{1,8})+)?)$/D';
+    private const LANGUAGE_TAG_PATTERN = '/^(?<language>[A-Za-z]{2,8})(?<extlangs>(?:-[A-Za-z]{3}){0,3})(?:-(?<script>[A-Za-z]{4}))?(?:-(?<region>[A-Za-z]{2}|[0-9]{3}))?(?<variants>(?:-(?:[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*)(?<extensions>(?:-[0-9A-WY-Za-wy-z](?:-[A-Za-z0-9]{2,8})+)*)(?<privateuse>(?:-[xX](?:-[A-Za-z0-9]{1,8})+)?)\z/';
 
     public static function assertBcp47($actual): void
     {
@@ -44,7 +44,7 @@ final class LocaleAssertions
 
         if (
             in_array(strtolower($actual), self::GRANDFATHERED, true)
-            || preg_match('/^[xX](?:-[A-Za-z0-9]{1,8})+$/D', $actual) === 1
+            || preg_match('/^[xX](?:-[A-Za-z0-9]{1,8})+\z/', $actual) === 1
         ) {
             return;
         }
@@ -114,7 +114,7 @@ final class LocaleAssertions
         $keywords = $sections[1] ?? null;
 
         PHPUnit::assertMatchesRegularExpression(
-            '/^[A-Za-z0-9_-]+$/D',
+            '/^[A-Za-z0-9_-]+\z/',
             $base,
             sprintf('Failed asserting that "%s" has a valid ICU locale base name.', $actual)
         );
@@ -123,7 +123,7 @@ final class LocaleAssertions
         $language = array_shift($subtags);
 
         PHPUnit::assertMatchesRegularExpression(
-            '/^(?:root|[A-Za-z]{2,3})$/D',
+            '/^(?:root|[A-Za-z]{2,3})\z/',
             $language,
             sprintf('Failed asserting that "%s" has a valid ICU language component.', $actual)
         );
@@ -138,11 +138,11 @@ final class LocaleAssertions
             }
         }
 
-        if (isset($subtags[0]) && preg_match('/^[A-Za-z]{4}$/D', $subtags[0]) === 1) {
+        if (isset($subtags[0]) && preg_match('/^[A-Za-z]{4}\z/', $subtags[0]) === 1) {
             ScriptAssertions::assertAlpha4(ucfirst(strtolower(array_shift($subtags))));
         }
 
-        if (isset($subtags[0]) && preg_match('/^(?:[A-Za-z]{2}|[0-9]{3})$/D', $subtags[0]) === 1) {
+        if (isset($subtags[0]) && preg_match('/^(?:[A-Za-z]{2}|[0-9]{3})\z/', $subtags[0]) === 1) {
             $region = array_shift($subtags);
 
             if (ctype_alpha($region)) {
@@ -154,7 +154,7 @@ final class LocaleAssertions
 
         foreach ($subtags as $variant) {
             PHPUnit::assertMatchesRegularExpression(
-                '/^[A-Za-z0-9]+$/D',
+                '/^[A-Za-z0-9]+\z/',
                 $variant,
                 sprintf('Failed asserting that "%s" has valid ICU variant components.', $actual)
             );
@@ -176,7 +176,7 @@ final class LocaleAssertions
         $expected = strtolower($expected);
 
         PHPUnit::assertMatchesRegularExpression(
-            '/^(?:root|[a-z]{2,3})$/D',
+            '/^(?:root|[a-z]{2,3})\z/',
             $expected,
             'Failed asserting that the expected locale language is valid.'
         );
@@ -202,7 +202,7 @@ final class LocaleAssertions
         $expected = ctype_alpha($expected) ? strtoupper($expected) : $expected;
 
         PHPUnit::assertMatchesRegularExpression(
-            '/^(?:[A-Z]{2}|[0-9]{3})$/D',
+            '/^(?:[A-Z]{2}|[0-9]{3})\z/',
             $expected,
             'Failed asserting that the expected locale country is valid.'
         );
@@ -272,7 +272,7 @@ final class LocaleAssertions
     {
         if (
             in_array(strtolower($actual), self::GRANDFATHERED, true)
-            || preg_match('/^[xX](?:-[A-Za-z0-9]{1,8})+$/D', $actual) === 1
+            || preg_match('/^[xX](?:-[A-Za-z0-9]{1,8})+\z/', $actual) === 1
         ) {
             return ['language' => null, 'script' => null, 'country' => null];
         }
@@ -299,11 +299,11 @@ final class LocaleAssertions
         $script = null;
         $country = null;
 
-        if (isset($subtags[0]) && preg_match('/^[A-Za-z]{4}$/D', $subtags[0]) === 1) {
+        if (isset($subtags[0]) && preg_match('/^[A-Za-z]{4}\z/', $subtags[0]) === 1) {
             $script = ucfirst(strtolower(array_shift($subtags)));
         }
 
-        if (isset($subtags[0]) && preg_match('/^(?:[A-Za-z]{2}|[0-9]{3})$/D', $subtags[0]) === 1) {
+        if (isset($subtags[0]) && preg_match('/^(?:[A-Za-z]{2}|[0-9]{3})\z/', $subtags[0]) === 1) {
             $region = array_shift($subtags);
             $country = ctype_alpha($region) ? strtoupper($region) : $region;
         }
@@ -339,13 +339,13 @@ final class LocaleAssertions
 
         foreach (explode(';', $keywords) as $keyword) {
             PHPUnit::assertMatchesRegularExpression(
-                '/^(?<name>[A-Za-z][A-Za-z0-9_-]*)=(?<value>[A-Za-z0-9_-]+)$/D',
+                '/^(?<name>[A-Za-z][A-Za-z0-9_-]*)=(?<value>[A-Za-z0-9_-]+)\z/',
                 $keyword,
                 sprintf('Failed asserting that "%s" has valid ICU keyword assignments.', $actual)
             );
 
             preg_match(
-                '/^(?<name>[A-Za-z][A-Za-z0-9_-]*)=(?<value>[A-Za-z0-9_-]+)$/D',
+                '/^(?<name>[A-Za-z][A-Za-z0-9_-]*)=(?<value>[A-Za-z0-9_-]+)\z/',
                 $keyword,
                 $matches
             );

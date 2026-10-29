@@ -10,7 +10,7 @@ final class CardBinAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[0-9]{8}$/D',
+            '/^[0-9]{8}\z/',
             $actual,
             'Failed asserting that the value has a valid eight-digit IIN structure.'
         );
@@ -20,7 +20,7 @@ final class CardBinAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^(?:[0-9]{6}|[0-9]{8})$/D',
+            '/^(?:[0-9]{6}|[0-9]{8})\z/',
             $actual,
             'Failed asserting that the value has a valid six- or eight-digit BIN structure.'
         );

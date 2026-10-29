@@ -79,7 +79,7 @@ final class AsnAssertions
             $asn = (string) $actual;
         } else {
             PHPUnit::assertMatchesRegularExpression(
-                '/^(?:AS)?(?:0|[1-9][0-9]{0,9})$/iD',
+                '/^(?:AS)?(?:0|[1-9][0-9]{0,9})\z/i',
                 $actual,
                 'Failed asserting that the value is an ASN in asplain notation.'
             );

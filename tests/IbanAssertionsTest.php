@@ -49,6 +49,8 @@ final class IbanAssertionsTest extends TestCase
             'too short' => ['DE001234567890'],
             'too long' => ['DE00'.str_repeat('1', 31)],
             'non-numeric checksum' => ['DEAA370400440532013000'],
+            'trailing newline' => ["DE89370400440532013000\n"],
+            'trailing whitespace' => ['DE89370400440532013000 '],
         ];
     }
 

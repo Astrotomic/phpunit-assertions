@@ -45,6 +45,8 @@ final class CardBinAssertionsTest extends TestCase
             'too long' => ['123456789'],
             'non-numeric' => ['1234567A'],
             'whitespace' => [' 12345678'],
+            'trailing newline' => ["12345678\n"],
+            'trailing whitespace' => ['12345678 '],
         ];
     }
 
@@ -88,6 +90,7 @@ final class CardBinAssertionsTest extends TestCase
             'too long' => ['123456789'],
             'non-numeric' => ['12345A'],
             'whitespace' => ['123456 '],
+            'trailing newline' => ["123456\n"],
         ];
     }
 }

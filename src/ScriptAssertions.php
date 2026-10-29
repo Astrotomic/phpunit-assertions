@@ -11,7 +11,7 @@ final class ScriptAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[A-Z][a-z]{3}$/D',
+            '/^[A-Z][a-z]{3}\z/',
             $actual,
             'Failed asserting that the value is a canonical ISO 15924 alpha-4 script code.'
         );

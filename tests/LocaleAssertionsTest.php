@@ -79,6 +79,8 @@ final class LocaleAssertionsTest extends TestCase
             'private use without value' => ['en-x'],
             'extended language after reserved language' => ['qaaa-abc'],
             'unknown extended language' => ['ab-abc-ab'],
+            'trailing newline' => ["de-DE\n"],
+            'trailing whitespace' => ['de-DE '],
         ];
     }
 
@@ -187,6 +189,8 @@ final class LocaleAssertionsTest extends TestCase
             'duplicate keyword' => ['de_DE@currency=EUR;currency=USD'],
             'multiple keyword separators' => ['de_DE@currency=EUR@calendar=gregorian'],
             'empty variant' => ['de_DE_'],
+            'trailing newline' => ["de_DE\n"],
+            'trailing whitespace' => ['de_DE '],
         ];
     }
 

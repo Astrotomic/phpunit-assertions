@@ -46,6 +46,8 @@ final class BankIdentifierAssertionsTest extends TestCase
             'non-numeric' => ['02100002A'],
             'reserved prefix' => ['130000006'],
             'invalid checksum' => ['021000022'],
+            'trailing newline' => ["021000021\n"],
+            'trailing whitespace' => ['021000021 '],
         ];
     }
 
@@ -89,6 +91,8 @@ final class BankIdentifierAssertionsTest extends TestCase
             'numeric country code' => ['DEUT12FF'],
             'lowercase' => ['deutdeff'],
             'special character' => ['DEUTDEF!'],
+            'trailing newline' => ["DEUTDEFF\n"],
+            'trailing whitespace' => ['DEUTDEFF '],
         ];
     }
 
@@ -132,6 +136,8 @@ final class BankIdentifierAssertionsTest extends TestCase
             'non-numeric check digit' => ['US037833100A'],
             'lowercase' => ['us0378331005'],
             'invalid checksum' => ['US0378331006'],
+            'trailing newline' => ["US0378331005\n"],
+            'trailing whitespace' => ['US0378331005 '],
         ];
     }
 
@@ -174,6 +180,8 @@ final class BankIdentifierAssertionsTest extends TestCase
             'non-numeric check digits' => ['506700GE1G29325QX3AA'],
             'lowercase' => ['506700ge1g29325qx363'],
             'invalid checksum' => ['506700GE1G29325QX364'],
+            'trailing newline' => ["506700GE1G29325QX363\n"],
+            'trailing whitespace' => ['506700GE1G29325QX363 '],
         ];
     }
 }

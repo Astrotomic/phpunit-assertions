@@ -3,6 +3,7 @@
 namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\PhoneNumberAssertions;
+use PHPUnit\Framework\AssertionFailedError;
 
 final class PhoneNumberAssertionsTest extends TestCase
 {
@@ -14,6 +15,26 @@ final class PhoneNumberAssertionsTest extends TestCase
     public static function it_can_validate_e164(): void
     {
         PhoneNumberAssertions::assertE164(preg_replace('/([^\d+])/', '', self::randomPhoneNumber()['number']));
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider invalidE164Numbers
+     */
+    public function it_rejects_invalid_e164_numbers(string $actual): void
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        PhoneNumberAssertions::assertE164($actual);
+    }
+
+    public static function invalidE164Numbers(): array
+    {
+        return [
+            'trailing newline' => ["+49123456789\n"],
+            'trailing whitespace' => ['+49123456789 '],
+        ];
     }
 
     /**

@@ -58,6 +58,8 @@ final class HostnameAssertionsTest extends TestCase
                 str_repeat('a', 63).'.'.str_repeat('b', 63).'.'.str_repeat('c', 63).'.'.str_repeat('d', 63),
             ],
             'multiple trailing dots' => ['api.example.com..'],
+            'trailing newline' => ["api.example.com\n"],
+            'trailing whitespace' => ['api.example.com '],
         ];
     }
 

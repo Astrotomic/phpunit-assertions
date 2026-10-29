@@ -12,7 +12,7 @@ final class IbanAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/',
+            '/^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}\z/',
             $actual,
             'Failed asserting that the value has a valid electronic IBAN format.'
         );

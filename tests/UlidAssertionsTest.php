@@ -47,6 +47,8 @@ final class UlidAssertionsTest extends TestCase
             'lowercase' => ['01arz3ndektsv4rrffq69g5fav'],
             'excluded character' => ['01ARZ3NDEKTSV4RRFFQ69G5FAI'],
             'out of range' => ['8ZZZZZZZZZZZZZZZZZZZZZZZZZ'],
+            'trailing newline' => ["01ARZ3NDEKTSV4RRFFQ69G5FAV\n"],
+            'trailing whitespace' => ['01ARZ3NDEKTSV4RRFFQ69G5FAV '],
         ];
     }
 }

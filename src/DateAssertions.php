@@ -7,7 +7,7 @@ use PHPUnit\Framework\Assert as PHPUnit;
 
 final class DateAssertions
 {
-    private const ISO_8601_PATTERN = '/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})(?:\.\d+)?(?<timezone>Z|(?<offset_sign>[+-])(?<offset_hour>\d{2}):(?<offset_minute>\d{2}))$/D';
+    private const ISO_8601_PATTERN = '/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})(?:\.\d+)?(?<timezone>Z|(?<offset_sign>[+-])(?<offset_hour>\d{2}):(?<offset_minute>\d{2}))\z/';
 
     public static function assertFormat(string $format, $actual): void
     {

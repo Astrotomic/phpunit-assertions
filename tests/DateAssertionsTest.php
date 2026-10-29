@@ -46,6 +46,8 @@ final class DateAssertionsTest extends TestCase
             'nonexistent day' => ['Y-m-d', '2026-02-30'],
             'non-leap year' => ['Y-m-d', '2025-02-29'],
             'trailing data' => ['Y-m-d', '2026-10-28T12:00:00Z'],
+            'trailing newline' => ['Y-m-d', "2026-10-28\n"],
+            'trailing whitespace' => ['Y-m-d', '2026-10-28 '],
         ];
     }
 
@@ -96,6 +98,8 @@ final class DateAssertionsTest extends TestCase
             'offset too large' => ['2026-10-28T18:42:03+14:01'],
             'offset minute too large' => ['2026-10-28T18:42:03+01:60'],
             'space separator' => ['2026-10-28 18:42:03Z'],
+            'trailing newline' => ["2026-10-28T18:42:03Z\n"],
+            'trailing whitespace' => ['2026-10-28T18:42:03Z '],
         ];
     }
 

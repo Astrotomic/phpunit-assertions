@@ -60,6 +60,8 @@ final class ScriptAssertionsTest extends TestCase
             'lowercase' => ['latn'],
             'uppercase' => ['LATN'],
             'numeric' => ['1234'],
+            'trailing newline' => ["Latn\n"],
+            'trailing whitespace' => ['Latn '],
         ];
     }
 

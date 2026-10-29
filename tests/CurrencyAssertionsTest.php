@@ -103,12 +103,25 @@ final class CurrencyAssertionsTest extends TestCase
         CurrencyAssertions::assertMinorUnits('JPY', 2);
     }
 
-    /** @test */
-    public function it_rejects_a_malformed_currency_code(): void
+    /**
+     * @test
+     *
+     * @dataProvider malformedCurrencyCodes
+     */
+    public function it_rejects_a_malformed_currency_code(string $actual): void
     {
         $this->expectException(AssertionFailedError::class);
 
-        CurrencyAssertions::assertIso4217('eur');
+        CurrencyAssertions::assertIso4217($actual);
+    }
+
+    public static function malformedCurrencyCodes(): array
+    {
+        return [
+            'lowercase' => ['eur'],
+            'trailing newline' => ["EUR\n"],
+            'trailing whitespace' => ['EUR '],
+        ];
     }
 
     /** @test */

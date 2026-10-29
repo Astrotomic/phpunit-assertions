@@ -10,7 +10,7 @@ final class UlidAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[0-7][0-9A-HJKMNP-TV-Z]{25}$/',
+            '/^[0-7][0-9A-HJKMNP-TV-Z]{25}\z/',
             $actual,
             'Failed asserting that the value is a valid ULID.'
         );

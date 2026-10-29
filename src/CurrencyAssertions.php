@@ -31,7 +31,7 @@ final class CurrencyAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[A-Z]{3}$/',
+            '/^[A-Z]{3}\z/',
             $actual,
             'Failed asserting that the value is a valid ISO 4217 currency code.'
         );

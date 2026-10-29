@@ -58,6 +58,8 @@ final class AsnAssertionsTest extends TestCase
             'asdot notation' => ['1.10'],
             'decimal' => ['13335.0'],
             'greater than unsigned 32-bit' => ['4294967296'],
+            'trailing newline' => ["13335\n"],
+            'trailing whitespace' => ['13335 '],
         ];
     }
 

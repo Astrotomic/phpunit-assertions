@@ -44,6 +44,8 @@ final class HashAssertionsTest extends TestCase
             'too short' => [str_repeat('a', 31)],
             'too long' => [str_repeat('a', 33)],
             'not hexadecimal' => [str_repeat('g', 32)],
+            'trailing newline' => [str_repeat('a', 32)."\n"],
+            'trailing whitespace' => [str_repeat('a', 32).' '],
         ];
     }
 
@@ -84,6 +86,8 @@ final class HashAssertionsTest extends TestCase
             'too short' => [str_repeat('a', 63)],
             'too long' => [str_repeat('a', 65)],
             'not hexadecimal' => [str_repeat('g', 64)],
+            'trailing newline' => [str_repeat('a', 64)."\n"],
+            'trailing whitespace' => [str_repeat('a', 64).' '],
         ];
     }
 

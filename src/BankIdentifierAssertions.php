@@ -10,7 +10,7 @@ final class BankIdentifierAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[0-9]{9}$/',
+            '/^[0-9]{9}\z/',
             $actual,
             'Failed asserting that the value has a valid ABA routing number format.'
         );
@@ -40,7 +40,7 @@ final class BankIdentifierAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[A-Z0-9]{4}[A-Z]{2}[A-Z0-9]{2}(?:[A-Z0-9]{3})?$/',
+            '/^[A-Z0-9]{4}[A-Z]{2}[A-Z0-9]{2}(?:[A-Z0-9]{3})?\z/',
             $actual,
             'Failed asserting that the value is a valid BIC.'
         );
@@ -50,7 +50,7 @@ final class BankIdentifierAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[A-Z]{2}[A-Z0-9]{9}[0-9]$/',
+            '/^[A-Z]{2}[A-Z0-9]{9}[0-9]\z/',
             $actual,
             'Failed asserting that the value has a valid ISIN format.'
         );
@@ -64,7 +64,7 @@ final class BankIdentifierAssertions
     {
         PHPUnit::assertIsString($actual);
         PHPUnit::assertMatchesRegularExpression(
-            '/^[A-Z0-9]{18}[0-9]{2}$/',
+            '/^[A-Z0-9]{18}[0-9]{2}\z/',
             $actual,
             'Failed asserting that the value has a valid LEI format.'
         );

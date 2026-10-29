@@ -46,7 +46,7 @@ final class HostnameAssertions
             if (
                 $label === ''
                 || strlen($label) > 63
-                || preg_match('/^[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/', $label) !== 1
+                || preg_match('/^[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\z/', $label) !== 1
             ) {
                 return false;
             }
