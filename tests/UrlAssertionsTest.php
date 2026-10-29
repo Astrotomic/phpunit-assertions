@@ -3,6 +3,7 @@
 namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\UrlAssertions;
+use PHPUnit\Framework\AssertionFailedError;
 
 final class UrlAssertionsTest extends TestCase
 {
@@ -75,5 +76,42 @@ final class UrlAssertionsTest extends TestCase
         ];
 
         UrlAssertions::assertQuery($query, 'https://'.self::randomString().'.com?'.http_build_query($query));
+    }
+
+    /** @test */
+    public function it_can_validate_a_query_subset_with_strict_values(): void
+    {
+        UrlAssertions::assertQueryContains(
+            ['format' => 'webp', 'size' => ['width' => '640', 'height' => '480']],
+            'https://example.com/image?format=webp&quality=80&size%5Bwidth%5D=640&size%5Bheight%5D=480'
+        );
+    }
+
+    /** @test */
+    public function it_can_validate_a_query_subset_on_a_relative_url(): void
+    {
+        UrlAssertions::assertQueryContains(['format' => 'webp'], '/image?format=webp&quality=80');
+    }
+
+    /** @test */
+    public function it_rejects_a_missing_query_parameter(): void
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        UrlAssertions::assertQueryContains(['format' => 'webp'], 'https://example.com/image?quality=80');
+    }
+
+    /** @test */
+    public function it_rejects_a_query_parameter_with_a_different_value(): void
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        UrlAssertions::assertQueryContains(['format' => 'webp'], 'https://example.com/image?format=avif');
+    }
+
+    /** @test */
+    public function it_compares_query_parameter_values_using_regular_equality(): void
+    {
+        UrlAssertions::assertQueryContains(['page' => 1], 'https://example.com?page=1');
     }
 }

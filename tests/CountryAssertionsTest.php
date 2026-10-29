@@ -4,9 +4,27 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\CountryAssertions;
 use League\ISO3166\ISO3166;
+use PHPUnit\Framework\AssertionFailedError;
 
 final class CountryAssertionsTest extends TestCase
 {
+    /**
+     * @test
+     *
+     * @runInSeparateProcess
+     *
+     * @preserveGlobalState disabled
+     */
+    public function it_uses_symfony_intl(): void
+    {
+        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
+
+        CountryAssertions::assertName('Germany');
+        CountryAssertions::assertAlpha2('DE');
+        CountryAssertions::assertAlpha3('DEU');
+        CountryAssertions::assertNumeric('276');
+    }
+
     /**
      * @test
      *
@@ -65,5 +83,28 @@ final class CountryAssertionsTest extends TestCase
     public static function countryNumeric(): iterable
     {
         return array_map(fn (array $country): array => [$country[ISO3166::KEY_NUMERIC]], (new ISO3166)->all());
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider invalidCountries
+     */
+    public function it_rejects_unknown_countries(string $method, $actual): void
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        CountryAssertions::{$method}($actual);
+    }
+
+    public static function invalidCountries(): array
+    {
+        return [
+            'name' => ['assertName', 'Not a country'],
+            'alpha-2' => ['assertAlpha2', 'ZZ'],
+            'alpha-3' => ['assertAlpha3', 'ZZZ'],
+            'numeric' => ['assertNumeric', '999'],
+            'not a string' => ['assertAlpha2', 123],
+        ];
     }
 }

@@ -25,6 +25,7 @@
         "gajus/dindent": "^2.0",
         "giggsey/libphonenumber-for-php": "^8.12 || ^9.0",
         "hashids/hashids": "^4.0 || ^5.0",
+        "jschaedl/iban-validation": "^2.0",
         "laravel/pint": "^1.0",
         "league/iso3166": "^2.1 || ^3.0 || ^4.0",
         "orchestra/testbench": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
@@ -32,13 +33,18 @@
         "vinkla/hashids": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
     },
     "suggest": {
-        "astrotomic/iso639": "\\Astrotomic\\PhpunitAssertions\\LanguageAssertions (^1.0)",
+        "alcohol/iso4217": "\\Astrotomic\\PhpunitAssertions\\CurrencyAssertions (^3.0 || ^4.0)",
+        "astrotomic/iso639": "\\Astrotomic\\PhpunitAssertions\\LanguageAssertions and \\Astrotomic\\PhpunitAssertions\\LocaleAssertions (^1.0)",
+        "brick/money": "\\Astrotomic\\PhpunitAssertions\\CurrencyAssertions (>=0.8 <1.0)",
         "egulias/email-validator": "\\Astrotomic\\PhpunitAssertions\\EmailAssertions (^2.1 || ^3.0 || ^4.0)",
         "gajus/dindent": "\\Astrotomic\\PhpunitAssertions\\Laravel\\BladeAssertions (^2.0)",
         "giggsey/libphonenumber-for-php": "\\Astrotomic\\PhpunitAssertions\\PhoneNumberAssertions (^8.12 || ^9.0)",
         "hashids/hashids": "\\Astrotomic\\PhpunitAssertions\\HashidAssertions (^4.0 || ^5.0)",
-        "league/iso3166": "\\Astrotomic\\PhpunitAssertions\\CountryAssertions (^2.1 || ^3.0 || ^4.0)",
+        "jschaedl/iban-validation": "\\Astrotomic\\PhpunitAssertions\\IbanAssertions (^2.0)",
+        "league/iso3166": "\\Astrotomic\\PhpunitAssertions\\CountryAssertions and \\Astrotomic\\PhpunitAssertions\\LocaleAssertions (^2.1 || ^3.0 || ^4.0)",
+        "moneyphp/money": "\\Astrotomic\\PhpunitAssertions\\CurrencyAssertions (^3.3 || ^4.0)",
         "ramsey/uuid": "\\Astrotomic\\PhpunitAssertions\\UuidAssertions (^4.0)",
+        "symfony/intl": "CurrencyAssertions, CountryAssertions, LanguageAssertions, LocaleAssertions, and ScriptAssertions (^5.4 || ^6.0 || ^7.0 || ^8.0)",
         "vinkla/hashids": "\\Astrotomic\\PhpunitAssertions\\Laravel\\HashidAssertions (^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0)"
     },
     "minimum-stability": "dev",

@@ -3,9 +3,30 @@
 namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\ArrayAssertions;
+use PHPUnit\Framework\AssertionFailedError;
 
 final class ArrayAssertionsTest extends TestCase
 {
+    /** @test */
+    public function it_considers_an_empty_array_indexed(): void
+    {
+        ArrayAssertions::assertIndexed([]);
+    }
+
+    /** @test */
+    public function it_does_not_consider_an_empty_array_associative(): void
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        ArrayAssertions::assertAssociative([]);
+    }
+
+    /** @test */
+    public function it_can_compare_empty_arrays(): void
+    {
+        ArrayAssertions::assertEquals([], []);
+    }
+
     /**
      * @test
      *

@@ -29,6 +29,24 @@ final class UrlAssertions
 
     public static function assertQuery(array $expected, $actual): void
     {
+        ArrayAssertions::assertEquals($expected, self::parseQuery($actual));
+    }
+
+    public static function assertQueryContains(array $expected, $actual): void
+    {
+        ArrayAssertions::assertSubset($expected, self::parseQuery($actual));
+    }
+
+    public static function assertComponent($expected, $actual, int $component): void
+    {
+        self::assertValidLoose($actual);
+        PHPUnit::assertSame($expected, parse_url($actual, $component));
+    }
+
+    private static function parseQuery($actual): array
+    {
+        PHPUnit::assertIsString($actual);
+
         $queryStr = parse_url($actual, PHP_URL_QUERY);
         PHPUnit::assertIsString($queryStr);
 
@@ -36,12 +54,6 @@ final class UrlAssertions
         parse_str($queryStr, $query);
         PHPUnit::assertIsArray($query);
 
-        ArrayAssertions::assertEquals($expected, $query);
-    }
-
-    public static function assertComponent($expected, $actual, int $component): void
-    {
-        self::assertValidLoose($actual);
-        PHPUnit::assertSame($expected, parse_url($actual, $component));
+        return $query;
     }
 }
