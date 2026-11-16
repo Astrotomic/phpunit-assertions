@@ -3,15 +3,14 @@
 namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\UuidAssertions;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Ramsey\Uuid\Uuid;
 
 final class UuidAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_uuid_v1(): void
     {
         $uuid = Uuid::uuid1();
@@ -19,11 +18,8 @@ final class UuidAssertionsTest extends TestCase
         UuidAssertions::assertUuid($uuid->toString());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_uuid_v2(): void
     {
         $uuid = Uuid::uuid2(Uuid::DCE_DOMAIN_PERSON);
@@ -31,11 +27,8 @@ final class UuidAssertionsTest extends TestCase
         UuidAssertions::assertUuid($uuid->toString());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_uuid_v3(): void
     {
         $uuid = Uuid::uuid3(Uuid::NAMESPACE_URL, 'https://astrotomic.info');
@@ -43,11 +36,8 @@ final class UuidAssertionsTest extends TestCase
         UuidAssertions::assertUuid($uuid->toString());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_uuid_v4(): void
     {
         $uuid = Uuid::uuid4();
@@ -55,11 +45,8 @@ final class UuidAssertionsTest extends TestCase
         UuidAssertions::assertUuid($uuid->toString());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_uuid_v5(): void
     {
         $uuid = Uuid::uuid5(Uuid::NAMESPACE_URL, 'https://astrotomic.info');
@@ -67,11 +54,8 @@ final class UuidAssertionsTest extends TestCase
         UuidAssertions::assertUuid($uuid->toString());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_uuid_v6(): void
     {
         $uuid = Uuid::uuid6();

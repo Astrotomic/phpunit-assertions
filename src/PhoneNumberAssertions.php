@@ -12,7 +12,7 @@ final class PhoneNumberAssertions
     public static function assertE164($actual): void
     {
         PHPUnit::assertIsString($actual);
-        PHPUnit::assertMatchesRegularExpression('/^\+[1-9]\d{1,14}$/', $actual);
+        PHPUnit::assertMatchesRegularExpression('/^\+[1-9]\d{1,14}\z/', $actual);
         StringLengthAssertions::assertLessThanOrEqual(16, $actual); // plus-sign and max. 15 digits incl. CC-prefix
     }
 

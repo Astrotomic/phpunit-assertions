@@ -9,26 +9,20 @@ final class ArrayAssertions
     public static function assertIndexed($actual): void
     {
         PHPUnit::assertIsArray($actual);
-        PHPUnit::assertEquals(
-            range(0, count($actual) - 1),
-            array_keys($actual)
-        );
+        PHPUnit::assertTrue(self::isIndexed($actual));
     }
 
     public static function assertAssociative($actual): void
     {
         PHPUnit::assertIsArray($actual);
-        PHPUnit::assertNotEquals(
-            range(0, count($actual) - 1),
-            array_keys($actual)
-        );
+        PHPUnit::assertFalse(self::isIndexed($actual));
     }
 
     public static function assertEquals(array $expected, $actual): void
     {
         PHPUnit::assertIsArray($actual);
 
-        if (array_keys($expected) === range(0, count($expected) - 1)) {
+        if (self::isIndexed($expected)) {
             sort($expected);
             sort($actual);
         } else {
@@ -56,5 +50,10 @@ final class ArrayAssertions
         foreach ($expected as $value) {
             PHPUnit::assertContains($value, $actual);
         }
+    }
+
+    private static function isIndexed(array $array): bool
+    {
+        return $array === [] || array_keys($array) === range(0, count($array) - 1);
     }
 }

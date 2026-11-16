@@ -3,14 +3,13 @@
 namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\NullableTypeAssertions;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class NullableTypeAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_nullable_string(): void
     {
         NullableTypeAssertions::assertIsNullableString(
@@ -20,11 +19,8 @@ final class NullableTypeAssertionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_nullable_int(): void
     {
         NullableTypeAssertions::assertIsNullableInt(
@@ -34,11 +30,8 @@ final class NullableTypeAssertionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_nullable_float(): void
     {
         NullableTypeAssertions::assertIsNullableFloat(
@@ -48,11 +41,8 @@ final class NullableTypeAssertionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_nullable_array(): void
     {
         NullableTypeAssertions::assertIsNullableArray(
@@ -62,11 +52,8 @@ final class NullableTypeAssertionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_nullable_bool(): void
     {
         NullableTypeAssertions::assertIsNullableBool(
