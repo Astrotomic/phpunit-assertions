@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\CardBinAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class CardBinAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider validIins
-     */
+    #[Test]
+    #[DataProvider('validIins')]
     public function it_can_validate_iin_structure(string $actual): void
     {
         CardBinAssertions::assertIin($actual);
@@ -25,11 +24,8 @@ final class CardBinAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidIins
-     */
+    #[Test]
+    #[DataProvider('invalidIins')]
     public function it_rejects_invalid_iin_structure($actual): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -50,11 +46,8 @@ final class CardBinAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider validBins
-     */
+    #[Test]
+    #[DataProvider('validBins')]
     public function it_can_validate_bin_structure(string $actual): void
     {
         CardBinAssertions::assertBin($actual);
@@ -69,11 +62,8 @@ final class CardBinAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidBins
-     */
+    #[Test]
+    #[DataProvider('invalidBins')]
     public function it_rejects_invalid_bin_structure($actual): void
     {
         $this->expectException(AssertionFailedError::class);

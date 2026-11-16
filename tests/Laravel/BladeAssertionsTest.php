@@ -3,14 +3,13 @@
 namespace Astrotomic\PhpunitAssertions\Tests\Laravel;
 
 use Astrotomic\PhpunitAssertions\Laravel\BladeAssertions;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class BladeAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public function it_can_validate_render(): void
     {
         $price = random_int(0, 10000) / 100;

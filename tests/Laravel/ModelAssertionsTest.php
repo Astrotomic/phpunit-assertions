@@ -7,6 +7,8 @@ use Astrotomic\PhpunitAssertions\Tests\Laravel\Models\Comment;
 use Astrotomic\PhpunitAssertions\Tests\Laravel\Models\Post;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ModelAssertionsTest extends TestCase
 {
@@ -18,11 +20,8 @@ final class ModelAssertionsTest extends TestCase
         Comment::migrate();
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public function it_can_validate_exists(): void
     {
         $post = Post::create([
@@ -32,11 +31,8 @@ final class ModelAssertionsTest extends TestCase
         ModelAssertions::assertExists($post);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public function it_can_validate_same(): void
     {
         $post = Post::create([
@@ -46,11 +42,8 @@ final class ModelAssertionsTest extends TestCase
         ModelAssertions::assertSame($post, Post::first());
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public function it_can_validate_relationship(): void
     {
         $post = Post::create([

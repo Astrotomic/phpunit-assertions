@@ -5,6 +5,8 @@ namespace Astrotomic\PhpunitAssertions\Tests\Laravel;
 use Astrotomic\PhpunitAssertions\Laravel\HashidAssertions;
 use Hashids\Hashids;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Vinkla\Hashids\HashidsServiceProvider;
 
 final class HashidAssertionsTest extends TestCase
@@ -16,11 +18,8 @@ final class HashidAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public function it_can_validate_hashid_on_default_connection(): void
     {
         $salt = self::randomString();
@@ -33,11 +32,8 @@ final class HashidAssertionsTest extends TestCase
         HashidAssertions::assertHashId($hashid->encode(self::randomInt(0)));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public function it_can_validate_hashid(): void
     {
         $salt = self::randomString();
@@ -53,11 +49,8 @@ final class HashidAssertionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public function it_can_validate_hashids(): void
     {
         $salt = self::randomString();

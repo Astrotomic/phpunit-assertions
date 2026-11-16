@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\IpAddressAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IpAddressAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider validIpAddresses
-     */
+    #[Test]
+    #[DataProvider('validIpAddresses')]
     public function it_can_validate_ip_addresses(string $address): void
     {
         IpAddressAssertions::assertValid($address);
@@ -26,23 +25,20 @@ final class IpAddressAssertionsTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function it_can_validate_ipv4_addresses(): void
     {
         IpAddressAssertions::assertV4('203.0.113.42');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_validate_ipv6_addresses(): void
     {
         IpAddressAssertions::assertV6('2001:db8::42');
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidIpAddresses
-     */
+    #[Test]
+    #[DataProvider('invalidIpAddresses')]
     public function it_rejects_invalid_ip_addresses($address): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -61,7 +57,7 @@ final class IpAddressAssertionsTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_ipv6_for_ipv4_assertion(): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -69,7 +65,7 @@ final class IpAddressAssertionsTest extends TestCase
         IpAddressAssertions::assertV4('2001:db8::1');
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_ipv4_for_ipv6_assertion(): void
     {
         $this->expectException(AssertionFailedError::class);

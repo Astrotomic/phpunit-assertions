@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\IbanAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IbanAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider validIbanFormats
-     */
+    #[Test]
+    #[DataProvider('validIbanFormats')]
     public function it_can_validate_iban_format_without_checking_the_checksum(string $iban): void
     {
         IbanAssertions::assertFormat($iban);
@@ -27,11 +26,8 @@ final class IbanAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidIbanFormats
-     */
+    #[Test]
+    #[DataProvider('invalidIbanFormats')]
     public function it_rejects_invalid_iban_formats($iban): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -54,11 +50,33 @@ final class IbanAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider validIbans
-     */
+    #[Test]
+    #[DataProvider('validIbans')]
+    public function it_can_validate_iban_checksums_without_a_country_registry(string $iban): void
+    {
+        IbanAssertions::assertChecksum($iban);
+    }
+
+    #[Test]
+    public function it_rejects_an_invalid_iban_checksum_without_a_country_registry(): void
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        IbanAssertions::assertChecksum('DE88370400440532013000');
+    }
+
+    #[Test]
+    public function a_valid_checksum_does_not_imply_country_specific_validity(): void
+    {
+        IbanAssertions::assertChecksum('AA36AAAAAAAAAAA');
+
+        $this->expectException(AssertionFailedError::class);
+
+        IbanAssertions::assertValid('AA36AAAAAAAAAAA');
+    }
+
+    #[Test]
+    #[DataProvider('validIbans')]
     public function it_can_validate_ibans(string $iban): void
     {
         IbanAssertions::assertValid($iban);
@@ -74,7 +92,7 @@ final class IbanAssertionsTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_an_iban_with_an_invalid_checksum(): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -82,7 +100,7 @@ final class IbanAssertionsTest extends TestCase
         IbanAssertions::assertValid('DE88370400440532013000');
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_an_iban_with_an_invalid_country_length(): void
     {
         $this->expectException(AssertionFailedError::class);

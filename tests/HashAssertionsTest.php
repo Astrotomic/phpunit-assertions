@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\HashAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HashAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider md5Digests
-     */
+    #[Test]
+    #[DataProvider('md5Digests')]
     public function it_can_validate_md5_digests(string $digest): void
     {
         HashAssertions::assertMd5($digest);
@@ -25,11 +24,8 @@ final class HashAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidMd5Digests
-     */
+    #[Test]
+    #[DataProvider('invalidMd5Digests')]
     public function it_rejects_invalid_md5_digests($digest): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -49,11 +45,8 @@ final class HashAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider sha256Digests
-     */
+    #[Test]
+    #[DataProvider('sha256Digests')]
     public function it_can_validate_sha256_digests(string $digest): void
     {
         HashAssertions::assertSha256($digest);
@@ -67,11 +60,8 @@ final class HashAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidSha256Digests
-     */
+    #[Test]
+    #[DataProvider('invalidSha256Digests')]
     public function it_rejects_invalid_sha256_digests($digest): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -91,11 +81,8 @@ final class HashAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider matchingDigests
-     */
+    #[Test]
+    #[DataProvider('matchingDigests')]
     public function it_can_match_content_to_a_digest(string $algorithm, string $content, string $digest): void
     {
         HashAssertions::assertMatches($algorithm, $content, $digest);
@@ -111,7 +98,7 @@ final class HashAssertionsTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_a_digest_for_different_content(): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -119,7 +106,7 @@ final class HashAssertionsTest extends TestCase
         HashAssertions::assertMatches('sha256', 'actual content', hash('sha256', 'different content'));
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_an_unsupported_hashing_algorithm(): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -127,11 +114,8 @@ final class HashAssertionsTest extends TestCase
         HashAssertions::assertMatches('not-an-algorithm', 'content', 'digest');
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider matchingHmacs
-     */
+    #[Test]
+    #[DataProvider('matchingHmacs')]
     public function it_can_match_hmac_signatures(
         string $algorithm,
         string $content,
@@ -167,11 +151,8 @@ final class HashAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider nonMatchingHmacs
-     */
+    #[Test]
+    #[DataProvider('nonMatchingHmacs')]
     public function it_rejects_non_matching_hmac_signatures(
         string $content,
         string $key,
@@ -192,7 +173,7 @@ final class HashAssertionsTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_an_unsupported_hmac_algorithm(): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -200,7 +181,7 @@ final class HashAssertionsTest extends TestCase
         HashAssertions::assertHmacMatches('not-an-algorithm', 'content', 'secret', 'signature');
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_an_unsupported_hmac_encoding(): void
     {
         $this->expectException(AssertionFailedError::class);

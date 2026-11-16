@@ -26,7 +26,14 @@ trait Randomize
 
     protected static function randomFloat(float $min = PHP_INT_MIN, float $max = PHP_INT_MAX): float
     {
-        return max($min, min(static::randomInt(intval(floor($min) * 100), intval(ceil($max) * 100)) / 100, $max));
+        if ($min >= PHP_INT_MIN / 100 && $max <= PHP_INT_MAX / 100) {
+            return max($min, min(static::randomInt((int) (floor($min) * 100), (int) (ceil($max) * 100)) / 100, $max));
+        }
+
+        $integerMin = $min <= PHP_INT_MIN ? PHP_INT_MIN : (int) ceil($min);
+        $integerMax = $max >= PHP_INT_MAX ? PHP_INT_MAX : (int) floor($max);
+
+        return (float) static::randomInt($integerMin, $integerMax);
     }
 
     protected static function randomElement(array $array)

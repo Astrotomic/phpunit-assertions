@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\HostnameAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HostnameAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider validHostnames
-     */
+    #[Test]
+    #[DataProvider('validHostnames')]
     public function it_can_validate_hostnames(string $hostname): void
     {
         HostnameAssertions::assertValid($hostname);
@@ -31,11 +30,8 @@ final class HostnameAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidHostnames
-     */
+    #[Test]
+    #[DataProvider('invalidHostnames')]
     public function it_rejects_invalid_hostnames($hostname): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -63,11 +59,8 @@ final class HostnameAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider validFqdns
-     */
+    #[Test]
+    #[DataProvider('validFqdns')]
     public function it_can_validate_fully_qualified_hostnames(string $hostname): void
     {
         HostnameAssertions::assertFqdn($hostname);
@@ -81,11 +74,23 @@ final class HostnameAssertionsTest extends TestCase
         ];
     }
 
-    /** @test */
-    public function it_rejects_a_single_label_as_a_fully_qualified_hostname(): void
+    #[Test]
+    #[DataProvider('invalidFqdns')]
+    public function it_rejects_invalid_fully_qualified_hostnames($hostname): void
     {
         $this->expectException(AssertionFailedError::class);
 
-        HostnameAssertions::assertFqdn('localhost');
+        HostnameAssertions::assertFqdn($hostname);
+    }
+
+    public static function invalidFqdns(): array
+    {
+        return [
+            'not a string' => [123],
+            'single label' => ['localhost'],
+            'empty label' => ['api..example.com'],
+            'trailing newline' => ["api.example.com\n"],
+            'trailing whitespace' => ['api.example.com '],
+        ];
     }
 }

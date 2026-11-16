@@ -4,24 +4,20 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\PhoneNumberAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class PhoneNumberAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider thousandTimes
-     */
+    #[Test]
+    #[DataProvider('thousandTimes')]
     public static function it_can_validate_e164(): void
     {
         PhoneNumberAssertions::assertE164(preg_replace('/([^\d+])/', '', self::randomPhoneNumber()['number']));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidE164Numbers
-     */
+    #[Test]
+    #[DataProvider('invalidE164Numbers')]
     public function it_rejects_invalid_e164_numbers(string $actual): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -37,21 +33,15 @@ final class PhoneNumberAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider thousandTimes
-     */
+    #[Test]
+    #[DataProvider('thousandTimes')]
     public static function it_can_validate_phone_number(): void
     {
         PhoneNumberAssertions::assertValid(self::randomPhoneNumber()['number']);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider thousandTimes
-     */
+    #[Test]
+    #[DataProvider('thousandTimes')]
     public static function it_can_validate_phone_number_for_region(): void
     {
         $number = self::randomPhoneNumber();

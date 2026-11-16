@@ -3,34 +3,27 @@
 namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\GeographicAssertions;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class GeographicAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_latitude(): void
     {
         GeographicAssertions::assertLatitude(self::randomFloat(-90, 90));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_longitude(): void
     {
         GeographicAssertions::assertLongitude(self::randomFloat(-180, 180));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_array_of_coordinates(): void
     {
         $coords = [
@@ -41,11 +34,8 @@ final class GeographicAssertionsTest extends TestCase
         GeographicAssertions::assertCoordinates($coords);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_array_of_coordinates_with_custom_keys(): void
     {
         $lat = 'lat_'.self::randomString();
@@ -59,7 +49,7 @@ final class GeographicAssertionsTest extends TestCase
         GeographicAssertions::assertCoordinates($coords, $lat, $lng);
     }
 
-    /** @test */
+    #[Test]
     public static function it_can_validate_distance_greater_than_or_equal(): void
     {
         $hamburg = ['lat' => 53.551085, 'lng' => 9.993682];
@@ -69,7 +59,7 @@ final class GeographicAssertionsTest extends TestCase
         GeographicAssertions::assertDistanceGreaterThanOrEqual(0, $hamburg, $hamburg);
     }
 
-    /** @test */
+    #[Test]
     public static function it_can_validate_distance_less_than_or_equal(): void
     {
         $hamburg = ['lat' => 53.551085, 'lng' => 9.993682];
@@ -79,7 +69,7 @@ final class GeographicAssertionsTest extends TestCase
         GeographicAssertions::assertDistanceLessThanOrEqual(0, $hamburg, $hamburg);
     }
 
-    /** @test */
+    #[Test]
     public static function it_can_validate_distance_with_custom_keys(): void
     {
         $hamburg = ['latitude' => 53.551085, 'longitude' => 9.993682];

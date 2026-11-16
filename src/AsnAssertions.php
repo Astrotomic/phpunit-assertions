@@ -18,6 +18,14 @@ final class AsnAssertions
         ['4200000000', '4294967294'],
     ];
 
+    /**
+     * IANA registry snapshot last reviewed 2026-10-29.
+     * Review before each release: https://www.iana.org/assignments/as-numbers.
+     */
+    private const RESERVED_RANGES = [
+        ['65552', '131071'],
+    ];
+
     private const RESERVED = [
         '0',
         '23456',
@@ -57,6 +65,7 @@ final class AsnAssertions
         PHPUnit::assertFalse(
             self::isInRanges($asn, self::PRIVATE_RANGES)
             || self::isInRanges($asn, self::DOCUMENTATION_RANGES)
+            || self::isInRanges($asn, self::RESERVED_RANGES)
             || in_array($asn, self::RESERVED, true),
             sprintf('Failed asserting that "%s" is a public ASN.', $actual)
         );

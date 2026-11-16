@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\HashidAssertions;
 use Hashids\Hashids;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HashidAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_hashid(): void
     {
         $salt = self::randomString();
@@ -25,11 +24,8 @@ final class HashidAssertionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_hashids(): void
     {
         $salt = self::randomString();

@@ -4,16 +4,18 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\ArrayAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ArrayAssertionsTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_considers_an_empty_array_indexed(): void
     {
         ArrayAssertions::assertIndexed([]);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_consider_an_empty_array_associative(): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -21,17 +23,14 @@ final class ArrayAssertionsTest extends TestCase
         ArrayAssertions::assertAssociative([]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_compare_empty_arrays(): void
     {
         ArrayAssertions::assertEquals([], []);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_array_is_indexed(): void
     {
         $actual = self::randomArray(self::randomInt(5, 20), false);
@@ -39,11 +38,8 @@ final class ArrayAssertionsTest extends TestCase
         ArrayAssertions::assertIndexed($actual);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_array_is_associative(): void
     {
         $actual = self::randomArray(self::randomInt(5, 20), true);
@@ -51,11 +47,8 @@ final class ArrayAssertionsTest extends TestCase
         ArrayAssertions::assertAssociative($actual);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_indexed_array_equality(): void
     {
         $array = self::randomArray(self::randomInt(5, 20), false);
@@ -67,11 +60,8 @@ final class ArrayAssertionsTest extends TestCase
         ArrayAssertions::assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_associative_array_equality(): void
     {
         $array = self::randomArray(self::randomInt(5, 20), true);
@@ -83,11 +73,8 @@ final class ArrayAssertionsTest extends TestCase
         ArrayAssertions::assertEquals($expected, $actual);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_associative_array_subset(): void
     {
         $array = self::randomArray(self::randomInt(5, 20), true);
@@ -99,11 +86,8 @@ final class ArrayAssertionsTest extends TestCase
         ArrayAssertions::assertSubset($expected, $actual);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_indexed_array_contains_all(): void
     {
         $array = self::randomArray(self::randomInt(5, 20), false);
@@ -115,11 +99,8 @@ final class ArrayAssertionsTest extends TestCase
         ArrayAssertions::assertContainsAll($expected, $actual);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider hundredTimes
-     */
+    #[Test]
+    #[DataProvider('hundredTimes')]
     public static function it_can_validate_associative_array_contains_all(): void
     {
         $array = self::randomArray(self::randomInt(5, 20), true);

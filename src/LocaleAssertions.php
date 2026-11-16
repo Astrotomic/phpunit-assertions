@@ -4,6 +4,7 @@ namespace Astrotomic\PhpunitAssertions;
 
 use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\AssertionFailedError;
+use Symfony\Component\Intl\Languages;
 
 final class LocaleAssertions
 {
@@ -36,9 +37,104 @@ final class LocaleAssertions
         'zh-xiang',
     ];
 
-    private const LANGUAGE_TAG_PATTERN = '/^(?<language>[A-Za-z]{2,8})(?<extlangs>(?:-[A-Za-z]{3}){0,3})(?:-(?<script>[A-Za-z]{4}))?(?:-(?<region>[A-Za-z]{2}|[0-9]{3}))?(?<variants>(?:-(?:[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*)(?<extensions>(?:-[0-9A-WY-Za-wy-z](?:-[A-Za-z0-9]{2,8})+)*)(?<privateuse>(?:-[xX](?:-[A-Za-z0-9]{1,8})+)?)\z/';
+    private const BCP47_PATTERN = '/^(?<language>[A-Za-z]{2,8})(?<extlangs>(?:-[A-Za-z]{3}){0,3})(?:-(?<script>[A-Za-z]{4}))?(?:-(?<region>[A-Za-z]{2}|[0-9]{3}))?(?<variants>(?:-(?:[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*)(?<extensions>(?:-[0-9A-WY-Za-wy-z](?:-[A-Za-z0-9]{2,8})+)*)(?<privateuse>(?:-[xX](?:-[A-Za-z0-9]{1,8})+)?)\z/';
 
     public static function assertBcp47($actual): void
+    {
+        self::assertRegisteredComponents(self::bcp47Components($actual));
+    }
+
+    public static function assertIcu($actual): void
+    {
+        self::assertRegisteredComponents(self::icuComponents($actual));
+    }
+
+    public static function assertValid($actual): void
+    {
+        self::validComponents($actual);
+    }
+
+    public static function assertLanguage(string $expected, $actual): void
+    {
+        $components = self::validComponents($actual);
+        $expected = strtolower($expected);
+
+        PHPUnit::assertMatchesRegularExpression(
+            '/^(?:root|[a-z]{2,8})\z/',
+            $expected,
+            'Failed asserting that the expected locale language has a valid structure.'
+        );
+        PHPUnit::assertSame(
+            $expected,
+            $components['language'],
+            sprintf('Failed asserting that the locale language is "%s".', $expected)
+        );
+    }
+
+    public static function assertRegion(string $expected, $actual): void
+    {
+        $components = self::validComponents($actual);
+        $expected = ctype_alpha($expected) ? strtoupper($expected) : $expected;
+
+        PHPUnit::assertMatchesRegularExpression(
+            '/^(?:[A-Z]{2}|[0-9]{3})\z/',
+            $expected,
+            'Failed asserting that the expected locale region has a valid structure.'
+        );
+        PHPUnit::assertSame(
+            $expected,
+            $components['region'],
+            sprintf('Failed asserting that the locale region is "%s".', $expected)
+        );
+    }
+
+    public static function assertScript(string $expected, $actual): void
+    {
+        $components = self::validComponents($actual);
+        $expected = ucfirst(strtolower($expected));
+
+        PHPUnit::assertMatchesRegularExpression(
+            '/^[A-Z][a-z]{3}\z/',
+            $expected,
+            'Failed asserting that the expected locale script has a valid structure.'
+        );
+        PHPUnit::assertSame(
+            $expected,
+            $components['script'],
+            sprintf('Failed asserting that the locale script is "%s".', $expected)
+        );
+    }
+
+    /**
+     * @return array{language: ?string, extlangs: list<string>, script: ?string, region: ?string}
+     */
+    private static function validComponents($actual): array
+    {
+        try {
+            $components = self::bcp47Components($actual);
+            self::assertRegisteredComponents($components);
+
+            return $components;
+        } catch (AssertionFailedError $exception) {
+        }
+
+        try {
+            $components = self::icuComponents($actual);
+            self::assertRegisteredComponents($components);
+
+            return $components;
+        } catch (AssertionFailedError $exception) {
+        }
+
+        PHPUnit::fail(
+            'Failed asserting that the value is a valid BCP 47 or ICU locale.'
+        );
+    }
+
+    /**
+     * @return array{language: ?string, extlangs: list<string>, script: ?string, region: ?string}
+     */
+    private static function bcp47Components($actual): array
     {
         PHPUnit::assertIsString($actual);
 
@@ -46,16 +142,15 @@ final class LocaleAssertions
             in_array(strtolower($actual), self::GRANDFATHERED, true)
             || preg_match('/^[xX](?:-[A-Za-z0-9]{1,8})+\z/', $actual) === 1
         ) {
-            return;
+            return ['language' => null, 'extlangs' => [], 'script' => null, 'region' => null];
         }
 
         $matches = [];
         PHPUnit::assertSame(
             1,
-            preg_match(self::LANGUAGE_TAG_PATTERN, $actual, $matches, PREG_UNMATCHED_AS_NULL),
-            sprintf('Failed asserting that "%s" is a well-formed BCP 47 language tag.', $actual)
+            preg_match(self::BCP47_PATTERN, $actual, $matches, PREG_UNMATCHED_AS_NULL),
+            sprintf('Failed asserting that "%s" has a valid BCP 47 structure.', $actual)
         );
-
         PHPUnit::assertTrue(
             strlen($matches['language']) <= 3 || $matches['extlangs'] === '',
             sprintf('Failed asserting that "%s" has valid extended-language placement.', $actual)
@@ -74,32 +169,20 @@ final class LocaleAssertions
             $actual
         );
 
-        $language = strtolower($matches['language']);
-
-        if ($language === 'und') {
-            // BCP 47 reserves "und" for an undetermined language.
-        } elseif (strlen($language) === 2) {
-            LanguageAssertions::assertAlpha2($language);
-        } elseif (strlen($language) === 3) {
-            LanguageAssertions::assertIso6392T($language);
-        }
-
-        if ($matches['extlangs'] !== '') {
-            foreach (explode('-', ltrim($matches['extlangs'], '-')) as $extlang) {
-                LanguageAssertions::assertIso6392T(strtolower($extlang));
-            }
-        }
-
-        if ($matches['script'] !== null) {
-            ScriptAssertions::assertAlpha4(ucfirst(strtolower($matches['script'])));
-        }
-
-        if ($matches['region'] !== null && ctype_alpha($matches['region'])) {
-            CountryAssertions::assertAlpha2(strtoupper($matches['region']));
-        }
+        return [
+            'language' => strtolower($matches['language']),
+            'extlangs' => $matches['extlangs'] === ''
+                ? []
+                : array_map('strtolower', explode('-', ltrim($matches['extlangs'], '-'))),
+            'script' => $matches['script'] === null ? null : ucfirst(strtolower($matches['script'])),
+            'region' => self::normalizeRegion($matches['region']),
+        ];
     }
 
-    public static function assertIcu($actual): void
+    /**
+     * @return array{language: string, extlangs: list<string>, script: ?string, region: ?string}
+     */
+    private static function icuComponents($actual): array
     {
         PHPUnit::assertIsString($actual);
 
@@ -107,12 +190,10 @@ final class LocaleAssertions
         PHPUnit::assertLessThanOrEqual(
             2,
             count($sections),
-            sprintf('Failed asserting that "%s" is a well-formed ICU locale ID.', $actual)
+            sprintf('Failed asserting that "%s" has a valid ICU locale structure.', $actual)
         );
 
         $base = $sections[0];
-        $keywords = $sections[1] ?? null;
-
         PHPUnit::assertMatchesRegularExpression(
             '/^[A-Za-z0-9_-]+\z/',
             $base,
@@ -120,34 +201,22 @@ final class LocaleAssertions
         );
 
         $subtags = explode('_', str_replace('-', '_', $base));
-        $language = array_shift($subtags);
-
+        $language = strtolower(array_shift($subtags));
         PHPUnit::assertMatchesRegularExpression(
-            '/^(?:root|[A-Za-z]{2,3})\z/',
+            '/^(?:root|[a-z]{2,3})\z/',
             $language,
             sprintf('Failed asserting that "%s" has a valid ICU language component.', $actual)
         );
 
-        $normalizedLanguage = strtolower($language);
-
-        if (! in_array($normalizedLanguage, ['root', 'und'], true)) {
-            if (strlen($normalizedLanguage) === 2) {
-                LanguageAssertions::assertAlpha2($normalizedLanguage);
-            } else {
-                LanguageAssertions::assertIso6392T($normalizedLanguage);
-            }
-        }
+        $script = null;
+        $region = null;
 
         if (isset($subtags[0]) && preg_match('/^[A-Za-z]{4}\z/', $subtags[0]) === 1) {
-            ScriptAssertions::assertAlpha4(ucfirst(strtolower(array_shift($subtags))));
+            $script = ucfirst(strtolower(array_shift($subtags)));
         }
 
         if (isset($subtags[0]) && preg_match('/^(?:[A-Za-z]{2}|[0-9]{3})\z/', $subtags[0]) === 1) {
-            $region = array_shift($subtags);
-
-            if (ctype_alpha($region)) {
-                CountryAssertions::assertAlpha2(strtoupper($region));
-            }
+            $region = self::normalizeRegion(array_shift($subtags));
         } elseif (($subtags[0] ?? null) === '') {
             array_shift($subtags);
         }
@@ -160,155 +229,123 @@ final class LocaleAssertions
             );
         }
 
-        if ($keywords !== null) {
-            self::assertIcuKeywords($keywords, $actual);
+        if (isset($sections[1])) {
+            self::assertIcuKeywords($sections[1], $actual);
         }
+
+        return ['language' => $language, 'extlangs' => [], 'script' => $script, 'region' => $region];
     }
 
-    public static function assertValid($actual): void
+    /**
+     * @param  array{language: ?string, extlangs: list<string>, script: ?string, region: ?string}  $components
+     */
+    private static function assertRegisteredComponents(array $components): void
     {
-        self::validStandard($actual);
+        if ($components['language'] !== null) {
+            self::assertRegisteredLanguage($components['language']);
+        }
+
+        foreach ($components['extlangs'] as $extlang) {
+            self::assertRegisteredLanguage($extlang);
+        }
+
+        if ($components['script'] !== null && ! self::isPrivateScript($components['script'])) {
+            ScriptAssertions::assertAlpha4($components['script']);
+        }
+
+        if ($components['region'] === null || self::isPrivateRegion($components['region'])) {
+            return;
+        }
+
+        if (ctype_digit($components['region'])) {
+            self::assertRegisteredNumericRegion($components['region']);
+
+            return;
+        }
+
+        CountryAssertions::assertAlpha2($components['region']);
     }
 
-    public static function assertLanguage(string $expected, $actual): void
+    private static function assertRegisteredLanguage(string $language): void
     {
-        $standard = self::validStandard($actual);
-        $expected = strtolower($expected);
+        if (
+            in_array($language, ['root', 'und'], true)
+            || (strlen($language) === 3 && $language >= 'qaa' && $language <= 'qtz')
+        ) {
+            return;
+        }
 
-        PHPUnit::assertMatchesRegularExpression(
-            '/^(?:root|[a-z]{2,3})\z/',
-            $expected,
-            'Failed asserting that the expected locale language is valid.'
-        );
+        if (strlen($language) === 2) {
+            LanguageAssertions::assertAlpha2($language);
 
-        if (! in_array($expected, ['root', 'und'], true)) {
-            if (strlen($expected) === 2) {
-                LanguageAssertions::assertAlpha2($expected);
-            } else {
-                LanguageAssertions::assertIso6392T($expected);
+            return;
+        }
+
+        if (strlen($language) === 3) {
+            if (class_exists(Languages::class) && Languages::alpha3CodeExists($language)) {
+                return;
             }
-        }
 
-        PHPUnit::assertSame(
-            $expected,
-            self::components($actual, $standard)['language'],
-            sprintf('Failed asserting that the locale language is "%s".', $expected)
-        );
-    }
+            LanguageAssertions::assertIso6392T($language);
 
-    public static function assertCountry(string $expected, $actual): void
-    {
-        $standard = self::validStandard($actual);
-        $expected = ctype_alpha($expected) ? strtoupper($expected) : $expected;
-
-        PHPUnit::assertMatchesRegularExpression(
-            '/^(?:[A-Z]{2}|[0-9]{3})\z/',
-            $expected,
-            'Failed asserting that the expected locale country is valid.'
-        );
-
-        if (ctype_alpha($expected)) {
-            CountryAssertions::assertAlpha2($expected);
-        } else {
-            CountryAssertions::assertNumeric($expected);
-        }
-
-        PHPUnit::assertSame(
-            $expected,
-            self::components($actual, $standard)['country'],
-            sprintf('Failed asserting that the locale country is "%s".', $expected)
-        );
-    }
-
-    public static function assertScript(string $expected, $actual): void
-    {
-        $standard = self::validStandard($actual);
-        $expected = ucfirst(strtolower($expected));
-
-        ScriptAssertions::assertAlpha4($expected);
-
-        PHPUnit::assertSame(
-            $expected,
-            self::components($actual, $standard)['script'],
-            sprintf('Failed asserting that the locale script is "%s".', $expected)
-        );
-    }
-
-    private static function validStandard($actual): string
-    {
-        try {
-            self::assertBcp47($actual);
-
-            return 'bcp47';
-        } catch (AssertionFailedError $exception) {
-        }
-
-        try {
-            self::assertIcu($actual);
-
-            return 'icu';
-        } catch (AssertionFailedError $exception) {
+            return;
         }
 
         PHPUnit::fail(
-            'Failed asserting that the value is a valid BCP 47 language tag or ICU locale ID.'
+            sprintf('No installed language provider can validate BCP 47 language subtag "%s".', $language)
         );
     }
 
-    /**
-     * @return array{language: ?string, script: ?string, country: ?string}
-     */
-    private static function components(string $actual, string $standard): array
+    private static function assertRegisteredNumericRegion(string $region): void
     {
-        return $standard === 'bcp47'
-            ? self::bcp47Components($actual)
-            : self::icuComponents($actual);
+        try {
+            CountryAssertions::assertNumeric($region);
+
+            return;
+        } catch (AssertionFailedError $exception) {
+        }
+
+        if (class_exists(\Locale::class)) {
+            $name = \Locale::getDisplayRegion('und_'.$region, 'en');
+
+            PHPUnit::assertIsString($name);
+            PHPUnit::assertNotSame(
+                '',
+                $name,
+                sprintf('Failed asserting that "%s" is a valid UN M.49 region code.', $region)
+            );
+            PHPUnit::assertNotSame(
+                $region,
+                $name,
+                sprintf('Failed asserting that "%s" is a valid UN M.49 region code.', $region)
+            );
+
+            return;
+        }
+
+        PHPUnit::fail(
+            sprintf('Failed asserting that "%s" is a valid ISO 3166-1 country or UN M.49 region code.', $region)
+        );
     }
 
-    /**
-     * @return array{language: ?string, script: ?string, country: ?string}
-     */
-    private static function bcp47Components(string $actual): array
+    private static function isPrivateScript(string $script): bool
     {
-        if (
-            in_array(strtolower($actual), self::GRANDFATHERED, true)
-            || preg_match('/^[xX](?:-[A-Za-z0-9]{1,8})+\z/', $actual) === 1
-        ) {
-            return ['language' => null, 'script' => null, 'country' => null];
-        }
-
-        preg_match(self::LANGUAGE_TAG_PATTERN, $actual, $matches, PREG_UNMATCHED_AS_NULL);
-
-        return [
-            'language' => strtolower($matches['language']),
-            'script' => $matches['script'] === null ? null : ucfirst(strtolower($matches['script'])),
-            'country' => $matches['region'] === null
-                ? null
-                : (ctype_alpha($matches['region']) ? strtoupper($matches['region']) : $matches['region']),
-        ];
+        return $script >= 'Qaaa' && $script <= 'Qabx';
     }
 
-    /**
-     * @return array{language: ?string, script: ?string, country: ?string}
-     */
-    private static function icuComponents(string $actual): array
+    private static function isPrivateRegion(string $region): bool
     {
-        $base = explode('@', $actual, 2)[0];
-        $subtags = explode('_', str_replace('-', '_', $base));
-        $language = strtolower(array_shift($subtags));
-        $script = null;
-        $country = null;
+        return $region === 'AA'
+            || ($region >= 'QM' && $region <= 'QZ')
+            || ($region >= 'XA' && $region <= 'XZ')
+            || $region === 'ZZ';
+    }
 
-        if (isset($subtags[0]) && preg_match('/^[A-Za-z]{4}\z/', $subtags[0]) === 1) {
-            $script = ucfirst(strtolower(array_shift($subtags)));
-        }
-
-        if (isset($subtags[0]) && preg_match('/^(?:[A-Za-z]{2}|[0-9]{3})\z/', $subtags[0]) === 1) {
-            $region = array_shift($subtags);
-            $country = ctype_alpha($region) ? strtoupper($region) : $region;
-        }
-
-        return compact('language', 'script', 'country');
+    private static function normalizeRegion(?string $region): ?string
+    {
+        return $region === null
+            ? null
+            : (ctype_alpha($region) ? strtoupper($region) : $region);
     }
 
     private static function assertUniqueSubtags(
@@ -344,11 +381,7 @@ final class LocaleAssertions
                 sprintf('Failed asserting that "%s" has valid ICU keyword assignments.', $actual)
             );
 
-            preg_match(
-                '/^(?<name>[A-Za-z][A-Za-z0-9_-]*)=(?<value>[A-Za-z0-9_-]+)\z/',
-                $keyword,
-                $matches
-            );
+            preg_match('/^(?<name>[A-Za-z][A-Za-z0-9_-]*)=/', $keyword, $matches);
             $names[] = strtolower($matches['name']);
         }
 

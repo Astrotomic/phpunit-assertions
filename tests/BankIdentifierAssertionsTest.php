@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\BankIdentifierAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class BankIdentifierAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider validAbaRoutingNumbers
-     */
+    #[Test]
+    #[DataProvider('validAbaRoutingNumbers')]
     public function it_can_validate_aba_routing_numbers(string $routingNumber): void
     {
         BankIdentifierAssertions::assertAbaRoutingNumber($routingNumber);
@@ -26,11 +25,8 @@ final class BankIdentifierAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidAbaRoutingNumbers
-     */
+    #[Test]
+    #[DataProvider('invalidAbaRoutingNumbers')]
     public function it_rejects_invalid_aba_routing_numbers($routingNumber): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -51,11 +47,8 @@ final class BankIdentifierAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider validBics
-     */
+    #[Test]
+    #[DataProvider('validBics')]
     public function it_can_validate_bics(string $bic): void
     {
         BankIdentifierAssertions::assertBic($bic);
@@ -70,11 +63,8 @@ final class BankIdentifierAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidBics
-     */
+    #[Test]
+    #[DataProvider('invalidBics')]
     public function it_rejects_invalid_bics($bic): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -96,11 +86,41 @@ final class BankIdentifierAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider validIsins
-     */
+    #[Test]
+    #[DataProvider('validSwiftBics')]
+    public function it_can_validate_swift_bics(string $bic): void
+    {
+        BankIdentifierAssertions::assertSwiftBic($bic);
+    }
+
+    public static function validSwiftBics(): array
+    {
+        return [
+            'eight characters' => ['DEUTDEFF'],
+            'eleven characters' => ['NEDSZAJJXXX'],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('invalidSwiftBics')]
+    public function it_rejects_invalid_swift_bics($bic): void
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        BankIdentifierAssertions::assertSwiftBic($bic);
+    }
+
+    public static function invalidSwiftBics(): array
+    {
+        return [
+            'numeric business prefix' => ['1234US33'],
+            'invalid general BIC structure' => ['DEUTDEF'],
+            'trailing newline' => ["DEUTDEFF\n"],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('validIsins')]
     public function it_can_validate_isins(string $isin): void
     {
         BankIdentifierAssertions::assertIsin($isin);
@@ -115,11 +135,8 @@ final class BankIdentifierAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidIsins
-     */
+    #[Test]
+    #[DataProvider('invalidIsins')]
     public function it_rejects_invalid_isins($isin): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -141,11 +158,8 @@ final class BankIdentifierAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider validLeis
-     */
+    #[Test]
+    #[DataProvider('validLeis')]
     public function it_can_validate_leis(string $lei): void
     {
         BankIdentifierAssertions::assertLei($lei);
@@ -160,11 +174,8 @@ final class BankIdentifierAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidLeis
-     */
+    #[Test]
+    #[DataProvider('invalidLeis')]
     public function it_rejects_invalid_leis($lei): void
     {
         $this->expectException(AssertionFailedError::class);

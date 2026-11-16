@@ -37,8 +37,8 @@ final class CountryAssertions
 
     private static function assertExists(string $type, string $actual): void
     {
-        $exists = self::existsInSymfonyIntl($type, $actual)
-            ?? self::existsInLeagueIso3166($type, $actual);
+        $exists = self::existsInLeagueIso3166($type, $actual)
+            ?? self::existsInSymfonyIntl($type, $actual);
 
         if ($exists === null) {
             PHPUnit::fail(

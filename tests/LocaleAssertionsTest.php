@@ -4,115 +4,76 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\LocaleAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\Test;
 
 final class LocaleAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider validLanguageTagsWithoutScripts
-     */
-    public function it_can_validate_bcp47_language_tags_without_scripts(string $actual): void
+    #[Test]
+    #[DataProvider('validBcp47Locales')]
+    public function it_can_validate_bcp47_locales(string $actual): void
     {
         LocaleAssertions::assertBcp47($actual);
     }
 
-    public static function validLanguageTagsWithoutScripts(): array
+    public static function validBcp47Locales(): array
     {
         return [
             'language' => ['de'],
             'language and region' => ['de-DE'],
             'case insensitive' => ['DE-de'],
             'undetermined language' => ['und'],
-            'ISO 639-2 language' => ['deu-DE'],
+            'three-letter language' => ['deu'],
+            'reserved components and private use' => ['qaa-Qaaa-QM-x-southern'],
             'variant' => ['de-CH-1901'],
             'extension' => ['en-US-u-ca-gregory'],
             'private use suffix' => ['de-DE-x-phonebk'],
             'private use only' => ['x-company'],
             'grandfathered' => ['i-klingon'],
             'numeric region' => ['es-419'],
-            'reserved language' => ['qaaa'],
+            'registered extlang component' => ['en-deu'],
+            'multiple registered extlang components' => ['de-deu-deu'],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     */
-    public function it_can_validate_a_bcp47_language_tag_with_a_script(): void
-    {
-        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/LanguageProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/ScriptProviders/SymfonyIntl.php';
-
-        LocaleAssertions::assertBcp47('de-Latn-DE');
-        LocaleAssertions::assertBcp47('DE-lATN-de');
-        LocaleAssertions::assertBcp47('zh-cmn-Hans-CN');
-    }
-
-    /**
-     * @test
-     *
-     * @dataProvider invalidLanguageTags
-     */
-    public function it_rejects_invalid_bcp47_language_tags($actual): void
+    #[Test]
+    #[DataProvider('invalidBcp47Locales')]
+    public function it_rejects_invalid_bcp47_locales($actual): void
     {
         $this->expectException(AssertionFailedError::class);
 
         LocaleAssertions::assertBcp47($actual);
     }
 
-    public static function invalidLanguageTags(): array
+    public static function invalidBcp47Locales(): array
     {
         return [
             'not a string' => [123],
             'empty' => [''],
             'underscore separator' => ['de_DE'],
-            'unknown language' => ['zz-DE'],
-            'unknown region' => ['de-ZZ'],
             'duplicate variant' => ['sl-rozaj-rozaj'],
             'duplicate extension singleton' => ['en-a-foo-a-bar'],
             'extension without value' => ['en-a'],
             'private use without value' => ['en-x'],
-            'extended language after reserved language' => ['qaaa-abc'],
-            'unknown extended language' => ['ab-abc-ab'],
+            'extlang after reserved language' => ['qaaa-abc'],
+            'unregistered language' => ['zz-DE'],
+            'unregistered country' => ['de-AB'],
+            'unvalidated long language' => ['qaaa'],
             'trailing newline' => ["de-DE\n"],
             'trailing whitespace' => ['de-DE '],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     */
-    public function it_rejects_an_unknown_script_in_a_bcp47_language_tag(): void
-    {
-        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/LanguageProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/ScriptProviders/SymfonyIntl.php';
-
-        $this->expectException(AssertionFailedError::class);
-
-        LocaleAssertions::assertBcp47('de-Zzzz-DE');
-    }
-
-    /**
-     * @test
-     *
-     * @dataProvider validIcuLocaleIdsWithoutScripts
-     */
-    public function it_can_validate_icu_locale_ids_without_scripts(string $actual): void
+    #[Test]
+    #[DataProvider('validIcuLocales')]
+    public function it_can_validate_icu_locales(string $actual): void
     {
         LocaleAssertions::assertIcu($actual);
     }
 
-    public static function validIcuLocaleIdsWithoutScripts(): array
+    public static function validIcuLocales(): array
     {
         return [
             'underscore separator' => ['de_DE'],
@@ -125,81 +86,41 @@ final class LocaleAssertionsTest extends TestCase
             'numeric region' => ['es_419'],
             'root locale' => ['root'],
             'undetermined language' => ['und'],
+            'reserved components' => ['qaa_Qaaa_QM'],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     */
-    public function it_can_validate_an_icu_locale_id_with_a_script(): void
-    {
-        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/LanguageProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/ScriptProviders/SymfonyIntl.php';
-
-        LocaleAssertions::assertIcu('de_Latn_DE');
-        LocaleAssertions::assertIcu('DE-lATN-de');
-        LocaleAssertions::assertIcu('zh_Hans_CN');
-    }
-
-    /**
-     * @test
-     *
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     */
-    public function it_rejects_an_unknown_script_in_an_icu_locale_id(): void
-    {
-        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/LanguageProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/ScriptProviders/SymfonyIntl.php';
-
-        $this->expectException(AssertionFailedError::class);
-
-        LocaleAssertions::assertIcu('de_Zzzz_DE');
-    }
-
-    /**
-     * @test
-     *
-     * @dataProvider invalidIcuLocaleIds
-     */
-    public function it_rejects_invalid_icu_locale_ids($actual): void
+    #[Test]
+    #[DataProvider('invalidIcuLocales')]
+    public function it_rejects_invalid_icu_locales($actual): void
     {
         $this->expectException(AssertionFailedError::class);
 
         LocaleAssertions::assertIcu($actual);
     }
 
-    public static function invalidIcuLocaleIds(): array
+    public static function invalidIcuLocales(): array
     {
         return [
             'not a string' => [123],
             'empty' => [''],
-            'unknown language' => ['zz_DE'],
-            'unknown region' => ['de_ZZ'],
+            'short language' => ['a_DE'],
+            'long language' => ['language_DE'],
             'POSIX encoding suffix' => ['de_DE.UTF-8'],
             'empty keyword list' => ['de_DE@'],
             'keyword without value' => ['de_DE@currency'],
             'duplicate keyword' => ['de_DE@currency=EUR;currency=USD'],
             'multiple keyword separators' => ['de_DE@currency=EUR@calendar=gregorian'],
             'empty variant' => ['de_DE_'],
+            'unregistered components' => ['zz_ZZ'],
             'trailing newline' => ["de_DE\n"],
             'trailing whitespace' => ['de_DE '],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider validLocales
-     */
-    public function it_can_accept_either_supported_locale_standard(string $actual): void
+    #[Test]
+    #[DataProvider('validLocales')]
+    public function it_can_accept_either_supported_locale(string $actual): void
     {
         LocaleAssertions::assertValid($actual);
     }
@@ -211,15 +132,13 @@ final class LocaleAssertionsTest extends TestCase
             'ICU' => ['de_DE'],
             'ICU keyword' => ['de_DE@currency=EUR'],
             'private-use BCP 47' => ['x-company'],
+            'reserved BCP 47 components' => ['qaa-Qaaa-QM-x-southern'],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidLocales
-     */
-    public function it_rejects_values_that_match_neither_locale_standard($actual): void
+    #[Test]
+    #[DataProvider('invalidLocales')]
+    public function it_rejects_values_that_are_neither_valid_locale_form($actual): void
     {
         $this->expectException(AssertionFailedError::class);
 
@@ -231,16 +150,14 @@ final class LocaleAssertionsTest extends TestCase
         return [
             'not a string' => [123],
             'empty' => [''],
-            'unknown components' => ['zz_ZZ'],
             'malformed' => ['not a locale!'],
+            'short language' => ['a_ZZ'],
+            'unregistered components' => ['zz_ZZ'],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider localeLanguages
-     */
+    #[Test]
+    #[DataProvider('localeLanguages')]
     public function it_can_assert_the_language_component(string $expected, string $actual): void
     {
         LocaleAssertions::assertLanguage($expected, $actual);
@@ -252,74 +169,80 @@ final class LocaleAssertionsTest extends TestCase
             'BCP 47' => ['de', 'de-DE'],
             'ICU' => ['de', 'de_DE'],
             'normalized expected value' => ['DE', 'de_DE'],
-            'ISO 639-2 language' => ['deu', 'deu_DE'],
+            'three-letter language' => ['deu', 'deu-US'],
+            'reserved language' => ['QAA', 'qaa-Qaaa-QM-x-southern'],
             'ICU root locale' => ['root', 'root'],
             'undetermined language' => ['und', 'und'],
-            'hyphenated ICU with variants' => ['de', 'de-abc-DE'],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider localeCountries
-     */
-    public function it_can_assert_the_country_component(string $expected, string $actual): void
+    #[Test]
+    #[DataProvider('localeRegions')]
+    public function it_can_assert_the_region_component(string $expected, string $actual): void
     {
-        LocaleAssertions::assertCountry($expected, $actual);
+        LocaleAssertions::assertRegion($expected, $actual);
     }
 
-    public static function localeCountries(): array
+    public static function localeRegions(): array
     {
         return [
-            'BCP 47' => ['DE', 'de-DE'],
-            'ICU' => ['DE', 'de_DE'],
+            'BCP 47 country region' => ['DE', 'de-DE'],
+            'ICU country region' => ['DE', 'de_DE'],
             'normalized expected value' => ['de', 'de_DE'],
+            'numeric macro-region' => ['419', 'es-419'],
+            'reserved region' => ['qm', 'qaa-Qaaa-QM-x-southern'],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     */
-    public function it_can_assert_locale_components_with_a_script(): void
+    #[Test]
+    #[DataProvider('localeScripts')]
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function it_can_assert_the_script_component(string $expected, string $actual): void
     {
-        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
-        require_once __DIR__.'/Fixtures/LanguageProviders/SymfonyIntl.php';
         require_once __DIR__.'/Fixtures/ScriptProviders/SymfonyIntl.php';
 
-        LocaleAssertions::assertLanguage('de', 'de-Latn-DE');
-        LocaleAssertions::assertCountry('DE', 'de_Latn_DE');
-        LocaleAssertions::assertScript('latn', 'de_Latn_DE');
-        LocaleAssertions::assertScript('LATN', 'de-Latn-DE');
+        LocaleAssertions::assertScript($expected, $actual);
     }
 
-    /**
-     * @test
-     *
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     */
-    public function it_rejects_a_missing_locale_script(): void
+    #[Test]
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function it_validates_every_component_with_detected_providers(): void
     {
-        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
         require_once __DIR__.'/Fixtures/LanguageProviders/SymfonyIntl.php';
+        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
+        require_once __DIR__.'/Fixtures/ScriptProviders/SymfonyIntl.php';
+
+        LocaleAssertions::assertBcp47('zh-cmn-Hans-CN');
+        LocaleAssertions::assertIcu('zh_Hans_CN');
+    }
+
+    #[Test]
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function it_rejects_an_unregistered_script(): void
+    {
+        require_once __DIR__.'/Fixtures/LanguageProviders/SymfonyIntl.php';
+        require_once __DIR__.'/Fixtures/CountryProviders/SymfonyIntl.php';
         require_once __DIR__.'/Fixtures/ScriptProviders/SymfonyIntl.php';
 
         $this->expectException(AssertionFailedError::class);
 
-        LocaleAssertions::assertScript('Latn', 'de_DE');
+        LocaleAssertions::assertBcp47('de-Abcd-DE');
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider mismatchedLocaleComponents
-     */
+    public static function localeScripts(): array
+    {
+        return [
+            'BCP 47' => ['latn', 'de-Latn-DE'],
+            'ICU' => ['LATN', 'de_Latn_DE'],
+            'reserved script' => ['qaaa', 'qaa-Qaaa-QM-x-southern'],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('mismatchedLocaleComponents')]
     public function it_rejects_mismatched_or_missing_locale_components(
         string $component,
         string $expected,
@@ -334,17 +257,28 @@ final class LocaleAssertionsTest extends TestCase
     {
         return [
             'different language' => ['assertLanguage', 'en', 'de_DE'],
-            'different country' => ['assertCountry', 'US', 'de_DE'],
-            'missing country' => ['assertCountry', 'DE', 'de'],
-            'ICU variant is not a country' => ['assertCountry', 'DE', 'de-abc-DE'],
+            'different region' => ['assertRegion', 'US', 'de_DE'],
+            'missing region' => ['assertRegion', 'DE', 'de'],
+            'ICU variant is not a region' => ['assertRegion', 'DE', 'de__PHONEBOOK'],
+            'missing script' => ['assertScript', 'Latn', 'de_DE'],
         ];
     }
 
-    /** @test */
-    public function it_validates_the_locale_before_asserting_a_component(): void
+    #[Test]
+    #[DataProvider('invalidComponentLocales')]
+    public function it_validates_the_complete_locale_before_asserting_a_component(string $actual): void
     {
         $this->expectException(AssertionFailedError::class);
 
-        LocaleAssertions::assertLanguage('de', 'zz_ZZ');
+        LocaleAssertions::assertLanguage('de', $actual);
+    }
+
+    public static function invalidComponentLocales(): array
+    {
+        return [
+            'malformed' => ['not a locale!'],
+            'unregistered language' => ['zz_DE'],
+            'unregistered country' => ['de_AB'],
+        ];
     }
 }

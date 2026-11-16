@@ -24,7 +24,7 @@ final class HostnameAssertions
         PHPUnit::assertGreaterThanOrEqual(
             2,
             count(explode('.', $hostname)),
-            sprintf('Failed asserting that "%s" is a fully qualified hostname.', $actual)
+            sprintf('Failed asserting that "%s" is a structurally valid multi-label hostname.', $actual)
         );
     }
 
@@ -46,7 +46,7 @@ final class HostnameAssertions
             if (
                 $label === ''
                 || strlen($label) > 63
-                || preg_match('/^[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\z/', $label) !== 1
+                || preg_match('/\A[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\z/', $label) !== 1
             ) {
                 return false;
             }

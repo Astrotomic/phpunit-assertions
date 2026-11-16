@@ -4,14 +4,13 @@ namespace Astrotomic\PhpunitAssertions\Tests;
 
 use Astrotomic\PhpunitAssertions\AsnAssertions;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AsnAssertionsTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider validAsns
-     */
+    #[Test]
+    #[DataProvider('validAsns')]
     public function it_can_validate_asns($actual): void
     {
         AsnAssertions::assertValid($actual);
@@ -30,11 +29,8 @@ final class AsnAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider invalidAsns
-     */
+    #[Test]
+    #[DataProvider('invalidAsns')]
     public function it_rejects_invalid_asns($actual): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -63,11 +59,8 @@ final class AsnAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider privateAsns
-     */
+    #[Test]
+    #[DataProvider('privateAsns')]
     public function it_can_validate_private_asns($actual): void
     {
         AsnAssertions::assertPrivate($actual);
@@ -83,11 +76,8 @@ final class AsnAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider nonPrivateAsns
-     */
+    #[Test]
+    #[DataProvider('nonPrivateAsns')]
     public function it_rejects_non_private_asns($actual): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -106,11 +96,8 @@ final class AsnAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider documentationAsns
-     */
+    #[Test]
+    #[DataProvider('documentationAsns')]
     public function it_can_validate_documentation_asns($actual): void
     {
         AsnAssertions::assertDocumentation($actual);
@@ -126,11 +113,8 @@ final class AsnAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider nonDocumentationAsns
-     */
+    #[Test]
+    #[DataProvider('nonDocumentationAsns')]
     public function it_rejects_non_documentation_asns($actual): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -149,11 +133,8 @@ final class AsnAssertionsTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider publicAsns
-     */
+    #[Test]
+    #[DataProvider('publicAsns')]
     public function it_can_validate_public_asns($actual): void
     {
         AsnAssertions::assertPublic($actual);
@@ -164,16 +145,14 @@ final class AsnAssertionsTest extends TestCase
         return [
             '16-bit' => ['13335'],
             'special-purpose public ASN' => ['AS112'],
+            'above reserved range' => ['131072'],
             '32-bit public space' => ['4199999999'],
             'integer' => [13335],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider nonPublicAsns
-     */
+    #[Test]
+    #[DataProvider('nonPublicAsns')]
     public function it_rejects_non_public_asns($actual): void
     {
         $this->expectException(AssertionFailedError::class);
@@ -189,6 +168,9 @@ final class AsnAssertionsTest extends TestCase
             'documentation' => ['64496'],
             'private' => ['64512'],
             '16-bit reserved' => ['65535'],
+            'below reserved range is documentation' => ['65551'],
+            'reserved range lower boundary' => ['65552'],
+            'reserved range upper boundary' => ['131071'],
             '32-bit private' => ['4200000000'],
             'maximum reserved' => ['4294967295'],
         ];
